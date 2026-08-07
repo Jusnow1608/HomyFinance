@@ -1,0 +1,48 @@
+:root {
+  /* 1. Tło główne (Ciepły, pastelowy beż / ecru) */
+  --bg-main: #fcfaf7;
+
+  /* 2. Karty, sekcje, nawigacja (Czysta biel dla przejrzystości) */
+  --bg-card: #ffffff;
+
+  /* 3. Kolor główny / Przychody / Sukces (Szałwiowa, miękka zieleń) */
+  --color-primary: #52796f;
+  --color-primary-hover:#4f6c64;
+  --color-primary-light: #e8f0ec; /* Tło pod wykresy/etykiety */
+
+  /* 4. Wydatki / Ostrzeżenia (Pastelowy, zgaszony koral - nieagresywny) */
+  --color-expense: #e07a5f;
+
+  /* 5. Tekst i nagłówki (Ciemna, ciepła szarość zamiast czystej czerni) */
+  --text-main: #2f3e46;
+  --text-muted: #7f8c8d;
+
+  /* 6. Ramki i podziały (Bardzo delikatny, ciepły szary) */
+  --border-color: #f0eae1;
+
+  --border-radius: clamp(1rem, 4vw, 2rem);
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+.btn-success {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-radius: var( --border-radius); 
+  border: none;
+}
+
+.btn-success:hover{
+  background-color: var(--color-primary-hover);
+}
+
+.text-success {
+  color: #ffffff;
+}
+
+.form-control{
+ border-radius: var( --border-radius); 
+}
