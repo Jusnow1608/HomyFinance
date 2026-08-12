@@ -38,7 +38,7 @@
 
 .btn-success-custom:hover,
 .btn-success-custom:active,
-.btn-success-custom-custom:focus,
+.btn-success-custom:focus,
 .btn-success-custom:focus-visible,
 .btn-success-custom:first-child:active {
   background-color: var(--color-primary-hover) !important;

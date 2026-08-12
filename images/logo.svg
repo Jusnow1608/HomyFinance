@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" width="330" height="70">
+  <defs>
+    <linearGradient id="badge-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f4efe6" />
+    </linearGradient>
+    <linearGradient id="note-green" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#52796f" />
+      <stop offset="100%" stop-color="#2f3e46" />
+    </linearGradient>
+    <linearGradient id="gold-money" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f3b61f" />
+      <stop offset="100%" stop-color="#e07a5f" />
+    </linearGradient>
+    <filter id="soft-shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2f3e46" flood-opacity="0.12" />
+    </filter>
+    <filter id="note-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#2f3e46" flood-opacity="0.2" />
+    </filter>
+  </defs>
+
+  <g id="logo-badge" filter="url(#soft-shadow)">
+    <rect x="5" y="5" width="60" height="60" rx="18" fill="url(#badge-bg)" stroke="#e8dfd1" stroke-width="1.5" />
+    <g id="money-note" filter="url(#note-shadow)">
+      <rect x="17" y="19" width="36" height="32" rx="6" fill="url(#note-green)" />
+      <rect x="20" y="22" width="30" height="26" rx="4" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.4" stroke-dasharray="3 1.5" />
+      <circle cx="35" cy="35" r="8.5" fill="url(#gold-money)" />
+      <text x="35" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle">$</text>
+    </g>
+  </g>
+
+  <g id="logo-text">
+    <text x="80" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="35" font-weight="800" letter-spacing="-0.5px">
+      <tspan fill="#2f3e46">Homy</tspan>
+      <tspan fill="#558467">Finance</tspan>
+    </text>
+  </g>
+</svg>
