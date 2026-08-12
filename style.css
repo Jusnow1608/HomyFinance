@@ -6,8 +6,8 @@
   --bg-card: #ffffff;
 
   /* 3. Kolor główny / Przychody / Sukces (Szałwiowa, miękka zieleń) */
-  --color-primary: #52796f;
-  --color-primary-hover:#4f6c64;
+  --color-primary: #558467;
+  --color-primary-hover:#3e645a;
   --color-primary-light: #e8f0ec; /* Tło pod wykresy/etykiety */
 
   /* 4. Wydatki / Ostrzeżenia (Pastelowy, zgaszony koral - nieagresywny) */
@@ -18,31 +18,42 @@
   --text-muted: #7f8c8d;
 
   /* 6. Ramki i podziały (Bardzo delikatny, ciepły szary) */
-  --border-color: #f0eae1;
+  --border-color: #e3ded5;
+  --border-color-hover: #e5e1d9;
 
-  --border-radius: clamp(1rem, 4vw, 2rem);
+  --border-radius: clamp(0.5rem, 2vw, 1rem);
 }
 
-body {
+.body-custom {
   background-color: var(--bg-main);
   color: var(--text-main);
 }
 
-.btn-success {
+.btn-success-custom {
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--bg-card);
   border-radius: var( --border-radius); 
   border: none;
 }
 
-.btn-success:hover{
-  background-color: var(--color-primary-hover);
+.btn-success-custom:hover,
+.btn-success-custom:active,
+.btn-success-custom-custom:focus,
+.btn-success-custom:focus-visible,
+.btn-success-custom:first-child:active {
+  background-color: var(--color-primary-hover) !important;
 }
 
-.text-success {
-  color: #ffffff;
+.text-success-custom {
+  color: var(--color-primary);
 }
 
-.form-control{
- border-radius: var( --border-radius); 
+.form-control-custom {
+ border-radius: var(--border-radius); 
+ border-color: var(--border-color);
+}
+
+.form-control-custom:focus {
+  border-color: var(--border-color);
+  box-shadow: 0 0 0 0.15rem var(--border-color-hover);
 }
