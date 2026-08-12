@@ -8,7 +8,7 @@
   /* 3. Kolor główny / Przychody / Sukces (Szałwiowa, miękka zieleń) */
   --color-primary: #558467;
   --color-primary-hover:#3e645a;
-  --color-primary-light: #e8f0ec; /* Tło pod wykresy/etykiety */
+  --color-primary-light: #0d0f0e; /* Tło pod wykresy/etykiety */
 
   /* 4. Wydatki / Ostrzeżenia (Pastelowy, zgaszony koral - nieagresywny) */
   --color-expense: #e07a5f;
@@ -32,7 +32,7 @@
 .btn-success-custom {
   background-color: var(--color-primary);
   color: var(--bg-card);
-  border-radius: var( --border-radius); 
+  border-radius: var(--border-radius); 
   border: none;
 }
 
@@ -56,4 +56,16 @@
 .form-control-custom:focus {
   border-color: var(--border-color);
   box-shadow: 0 0 0 0.15rem var(--border-color-hover);
+}
+
+.navbar-bg a{
+ border-radius: var(--border-radius);  
+}
+
+.navbar-bg a:hover,
+.navbar-bg a:active,
+.navbar-bg a:focus,
+.navbar-bg a:focus-visible{
+background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+border-radius: var(--border-radius); 
 }
