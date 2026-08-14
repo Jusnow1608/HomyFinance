@@ -22,10 +22,9 @@
     <header>
 
       <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
-
-        <div class="container">
-          <a class="navbar-brand d-flex align-items-center my-1" href="index.html">
-            <img src="images/logo.svg" alt="HomyFinance Logo" height="48" width="330" class="d-inline-block">
+        <div class="container d-flex align-items-center justify-content-between">
+          <a class="navbar-brand d-flex align-items-center my-1 me-2" href="index.html">
+            <img src="images/logo.svg" alt="HomyFinance Logo" class="navbar-logo d-inline-block">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -34,7 +33,7 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto navbar-custom">
               <li class="nav-item"><a class="nav-link active px-3" aria-current="page" href="index.html">Home</a></li>
-              <li class="nav-item"><a class="nav-link px-3" href="add-expense.html">Add Expense</a></li>
+              <li class="nav-item"><a class="nav-link px-3" href="expense.html">Add Expense</a></li>
               <li class="nav-item"><a class="nav-link px-3" href="#">Add Income</a></li>
               <li class="nav-item"><a class="nav-link px-3" href="balance.html">View Balance</a></li>
               <li class="nav-item"><a class="nav-link px-3" href="#">Settings</a></li>
@@ -49,53 +48,53 @@
     </header>
 
     <!-- Hero -->
-    <div class="px-4 py-5 my-5 text-center">
-      <h1 class="display-5 fw-bold text-body-emphasis">Welcome to HomyFinance!</h1>
-      <h2 class="text-muted mb-2 pt-1 px-3">Your personal home budget management center.</h2>
+    <div class="px-3 py-3 my-2 mx-4 text-center hero-width">
+      <h1 class="display-6 fw-bold text-body-emphasis mb-1">Welcome to HomyFinance!</h1>
+      <h2 class="h5 text-muted mb-2 px-3">Your personal home budget management center.</h2>
       <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4 pt-2 pb-4">What would you like to do today?</p>
+        <p class="lead mb-3 pt-2 fs-6">What would you like to do today?</p>
       </div>
 
-      <section class="row g-4 mb-5 justify-content-center">
+      <section class="row g-3 mb-3 justify-content-center">
 
         <div class="col-12 col-md-4">
-          <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-4">
-            <div class="card-body d-flex flex-column align-items-center">
-              <div class="rounded-circle expense-circle p-3 mb-3">
-                <img src="images/dash-circle.svg" alt="Red circle with dash in the middle" width="32" height="32">
+          <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3">
+            <div class="card-body d-flex flex-column align-items-center p-2">
+              <div class="rounded-circle expense-circle p-2 mb-2">
+                <img src="images/dash-circle.svg" alt="Red circle with dash in the middle" width="28" height="28">
               </div>
-              <h2 class="h4 fw-bold">Expense</h2>
-              <p class="card-text text-muted small mb-4">Did you go shopping, pay bills, or buy something new? Record
+              <h2 class="h5 fw-bold">Expense</h2>
+              <p class="card-text text-muted small mb-3">Did you go shopping, pay bills, or buy something new? Record
                 the expense.</p>
-              <a href="add-expense.html" class="btn btn-danger-custom w-100 mt-auto fw-bold rounded-3">Add Expense</a>
+              <a href="expense.html" class="btn btn-danger-custom w-100 mt-auto fw-bold rounded-3 py-2">Add Expense</a>
             </div>
           </div>
         </div>
 
         <div class="col-12 col-md-4">
-          <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-4">
-            <div class="card-body d-flex flex-column align-items-center">
-              <div class="rounded-circle income-circle p-3 mb-3 ">
-                <img src="images/plus-circle.svg" alt="Green circle with plus in the middle" width="32" height="32">
+          <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3">
+            <div class="card-body d-flex flex-column align-items-center p-2">
+              <div class="rounded-circle income-circle p-2 mb-2">
+                <img src="images/plus-circle.svg" alt="Green circle with plus in the middle" width="28" height="28">
               </div>
-              <h2 class="h4 fw-bold">Income</h2>
-              <p class="card-text text-muted small mb-4">Just received your paycheck or earned some extra money?
+              <h2 class="h5 fw-bold">Income</h2>
+              <p class="card-text text-muted small mb-3">Just received your paycheck or earned some extra money?
                 Record the income.</p>
-              <a href="add-income.html" class="btn btn-success-custom w-100 mt-auto fw-bold">Add Income</a>
+              <a href="#" class="btn btn-success-custom w-100 mt-auto fw-bold rounded-3 py-2">Add Income</a>
             </div>
           </div>
         </div>
 
         <div class="col-12 col-md-4">
-          <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-4">
-            <div class="card-body d-flex flex-column align-items-center">
-              <div class="rounded-circle balance-circle p-3 mb-3">
-                <img src="images/balance-circle.svg" alt="Beige circle with chart in the middle" width="32" height="32">
+          <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3">
+            <div class="card-body d-flex flex-column align-items-center p-2">
+              <div class="rounded-circle balance-circle p-2 mb-2">
+                <img src="images/balance-circle.svg" alt="Beige circle with chart in the middle" width="28" height="28">
               </div>
-              <h2 class="h4 fw-bold">Balance</h2>
-              <p class="card-text text-muted small mb-4">View a summary of your finances, spending charts, and your
+              <h2 class="h5 fw-bold">Balance</h2>
+              <p class="card-text text-muted small mb-3">View a summary of your finances, spending charts, and your
                 final balance.</p>
-              <a href="balance.html" class="btn btn-outline-dark w-100 mt-auto fw-bold rounded-3">View Balance</a>
+              <a href="balance.html" class="btn btn-outline-dark w-100 mt-auto fw-bold rounded-3 py-2">View Balance</a>
             </div>
           </div>
         </div>
@@ -104,9 +103,9 @@
 
       <div class="row justify-content-center">
         <div class="col-12">
-          <div class="card border-0 shadow-sm rounded-4 text-center p-4">
-            <div class="card-body d-flex flex-column align-items-center">
-              <div class="rounded-circle balance-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center">
+          <div class="card border-0 shadow-sm rounded-4 text-center p-3">
+            <div class="card-body d-flex flex-column align-items-center p-3">
+              <div class="rounded-circle balance-circle p-2 d-inline-flex align-items-center justify-content-center flex-shrink-0">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#e07a5f" class="bi bi-star-fill"
                   viewBox="0 0 16 16">
@@ -114,8 +113,10 @@
                     d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                 </svg>
               </div>
-              <h3 class="h4 fw-bold mb-2">Tip of the day</h3>
-              <p class="text-muted mb-0">"Small daily savings lead to a big annual balance!"</p>
+              <div class="text-start pt-2">
+            <span class="fw-bold d-block small">Tip of the day</span>
+            <small class="text-muted">"Small daily savings lead to a big annual balance!"</small>
+          </div>
             </div>
           </div>
         </div>
