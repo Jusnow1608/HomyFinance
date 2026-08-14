@@ -35,36 +35,31 @@
   color: var(--text-main);
 }
 
-.btn-success-custom {
-  background-color: var(--color-primary);
+.btn-custom {
   color: var(--bg-card);
-  border-radius: var(--border-radius); 
+  border-radius: var(--border-radius);
   border: none;
-  transition: var(--color-primary) 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-success-custom {
+  color: var(--bg-card);
+  background-color: var(--color-primary);
 }
 
 .btn-danger-custom{
-  background-color: var(--color-expense);
   color: var(--bg-card);
-  border-radius: var(--border-radius); 
-  border: none;
-  transition: background-color 0.2s ease;
+  background-color: var(--color-expense);
 }
 
 .btn-success-custom:hover,
-.btn-success-custom:active,
-.btn-success-custom:focus,
-.btn-success-custom:focus-visible,
-.btn-success-custom:first-child:active {
+.btn-success-custom:focus {
   background-color: var(--color-primary-hover);
   color: var(--bg-card);
 }
 
 .btn-danger-custom:hover,
-.btn-danger-custom:active,
-.btn-danger-custom:focus,
-.btn-danger-custom:focus-visible,
-.btn-danger-custom:first-child:active {
+.btn-danger-custom:focus {
   background-color: var(--color-expense-hover);
   color: var(--bg-card);
 }
@@ -83,7 +78,7 @@
   box-shadow: 0 0 0 0.15rem var(--border-color-hover);
 }
 
-.navbar-custom a{
+.navbar-custom a {
  border-radius: var(--border-radius);  
  font-weight: 500;
  transition: background-color 0.2s ease;
