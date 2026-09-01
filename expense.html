@@ -18,10 +18,55 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
         <div class="container d-flex align-items-center justify-content-between">
-          <a class="navbar-brand d-flex align-items-center my-1 me-2" href="index.html">
-            <img src="images/logo.svg" alt="HomyFinance Logo" class="navbar-logo d-inline-block">
+          <a class="navbar-brand d-flex align-items-center my-1" href="login.html">
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" alt="HomyFinance Logo"
+              class="d-inline-block navbar-logo">
+              <defs>
+                <linearGradient id="badge-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="100%" stop-color="#f4efe6" />
+                </linearGradient>
+                <linearGradient id="note-green" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#52796f" />
+                  <stop offset="100%" stop-color="#2f3e46" />
+                </linearGradient>
+                <linearGradient id="gold-money" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f3b61f" />
+                  <stop offset="100%" stop-color="#e07a5f" />
+                </linearGradient>
+                <filter id="soft-shadow" x="-10%" y="-10%" width="130%" height="130%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2f3e46" flood-opacity="0.12" />
+                </filter>
+                <filter id="note-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#2f3e46" flood-opacity="0.2" />
+                </filter>
+              </defs>
+
+              <g id="logo-badge" filter="url(#soft-shadow)">
+                <rect x="5" y="5" width="60" height="60" rx="18" fill="url(#badge-bg)" stroke="#e8dfd1"
+                  stroke-width="1.5" />
+                <g id="money-note" filter="url(#note-shadow)">
+                  <rect x="17" y="19" width="36" height="32" rx="6" fill="url(#note-green)" />
+                  <rect x="20" y="22" width="30" height="26" rx="4" fill="none" stroke="#ffffff" stroke-width="1.2"
+                    opacity="0.4" stroke-dasharray="3 1.5" />
+                  <circle cx="35" cy="35" r="8.5" fill="url(#gold-money)" />
+                  <text x="35" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="13"
+                    font-weight="900" fill="#ffffff" text-anchor="middle">$</text>
+                </g>
+              </g>
+
+              <g id="logo-text">
+                <text x="80" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="35" font-weight="800"
+                  letter-spacing="-0.5px">
+                  <tspan fill="#2f3e46">Homy</tspan>
+                  <tspan fill="#558467">Finance</tspan>
+                </text>
+              </g>
+            </svg>
           </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+          <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
           </button>
 
@@ -41,48 +86,51 @@
     </header>
 
     <!-- Main Form Section -->
-    <section class="flex-grow-1 d-flex align-items-center py-5">
+    <section class="flex-grow-1 d-flex align-items-center py-2 py-md-4">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-12 col-md-8 col-lg-6">
+          <div class="col-12 col-md-10 col-lg-8 col-xl-7">
 
-            <div class="card border-0 shadow-sm rounded-4 p-4">
+            <div class="card border-0 shadow-sm rounded-4 p-2 p-md-4">
               <div class="card-body">
 
                 <!-- Title Icon -->
                 <div class="text-center mb-4">
                   <div
                     class="rounded-circle expense-circle p-3 d-inline-flex align-items-center justify-content-center mb-2">
-                    <img src="images/dash-circle.svg" alt="Expense Icon" width="32" height="32">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                      class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z" />
+                    </svg>
                   </div>
                   <h1 class="h3 fw-bold">Add New Expense</h1>
-                  <p class="text-muted small">Enter the details of your daily spending</p>
                 </div>
 
                 <form>
                   <!-- 1. Amount Input -->
-                  <div class="mb-3">
+                  <div class="col-12 mb-3">
                     <label for="amount" class="form-label fw-bold small">Amount</label>
-                    <div class="input-group">
-                      <span class="input-group-text form-control-custom body-custom">
+                    <div class="input-group input-group-custom">
+                      <span class="input-group-text form-control-custom icon-custom body-custom">
                         <i class="bi bi-wallet2"></i>
                       </span>
                       <input type="number" step="0.01" min="0.01" class="form-control form-control-custom" id="amount"
                         placeholder="0.00" required>
-                      <span class="input-group-text form-control-custom body-custom">PLN</span>
+                      <span class="input-group-text form-control-custom icon-custom body-custom">PLN</span>
                     </div>
                   </div>
 
                   <!-- 2. Date Input -->
-                  <div class="mb-3">
+                  <div class="col-12 mb-3">
                     <label for="date" class="form-label fw-bold small">Date</label>
-                    <div class="input-group">
-                      <span class="input-group-text form-control-custom body-custom">
+                    <div class="input-group input-group-custom">
+                      <span class="input-group-text form-control-custom icon-custom body-custom">
                         <i class="bi bi-calendar-event"></i>
                       </span>
                       <input type="date" class="form-control form-control-custom" id="date" value="2026-08-14" required>
                     </div>
                   </div>
+
 
                   <!-- 3. Payment Method (Radio Buttons) -->
                   <div class="mb-3">
@@ -91,28 +139,25 @@
 
                       <div class="col-12 col-sm-4">
                         <input type="radio" class="btn-check" name="paymentMethod" id="pay-cash" value="cash" checked>
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
-                          for="pay-cash">
-                          <i class="bi bi-cash-stack me-1"></i> Cash
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                          for="pay-cash" title="Cash">
+                          <i class="bi bi-cash-stack me-1"></i><span class="tile-text"> Cash</span>
                         </label>
                       </div>
 
                       <div class="col-12 col-sm-4">
                         <input type="radio" class="btn-check" name="paymentMethod" id="pay-debit" value="debit-card">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
-                          for="pay-debit">
-                          <i class="bi bi-credit-card me-1"></i> Debit Card
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                          for="pay-debit" title="Debit Card">
+                          <i class="bi bi-credit-card me-1"></i><span class="tile-text"> Debit Card</span>
                         </label>
                       </div>
 
                       <div class="col-12 col-sm-4">
                         <input type="radio" class="btn-check" name="paymentMethod" id="pay-credit" value="credit-card">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
-                          for="pay-credit">
-                          <i class="bi bi-credit-card-2-front me-1"></i> Credit Card
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                          for="pay-credit" title="Credit Card">
+                          <i class="bi bi-credit-card-2-front me-1"></i><span class="tile-text"> Credit Card</span>
                         </label>
                       </div>
 
@@ -125,128 +170,114 @@
                     <label class="form-label fw-bold small d-block">Category</label>
                     <div class="row g-2">
 
-                      <div class="col-6 col-sm-4">
+                      <div class="col-6 col-sm-4 col-xxl-3">
                         <input type="radio" class="btn-check" name="category" id="cat-food" value="food" checked>
-                        <label class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small"
-                          for="cat-food">
-                          <i class="bi bi-cart me-1"></i> Food
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small" for="cat-food">
+                          <i class="bi bi-cart me-1"></i><span class="tile-text"> Food</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4">
+                      <div class="col-6 col-sm-4 col-xxl-3">
                         <input type="radio" class="btn-check" name="category" id="cat-apartments" value="apartments">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
                           for="cat-apartments">
-                          <i class="bi bi-house-door me-1"></i> Apartments
+                          <i class="bi bi-house-door me-1"></i><span class="tile-text"> Apartments</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4">
+                      <div class="col-6 col-sm-4 col-xxl-3">
                         <input type="radio" class="btn-check" name="category" id="cat-transport" value="transport">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
                           for="cat-transport">
-                          <i class="bi bi-bus-front me-1"></i> Transport
+                          <i class="bi bi-car-front me-1"></i><span class="tile-text"> Transport</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4">
+                      <div class="col-6 col-sm-4 col-xxl-3">
                         <input type="radio" class="btn-check" name="category" id="cat-telecom" value="telecom">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
                           for="cat-telecom">
-                          <i class="bi bi-phone me-1"></i> Telecom
+                          <i class="bi bi-phone me-1"></i><span class="tile-text"> Telecom</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4">
+                      <div class="col-6 col-sm-4 col-xxl-3">
                         <input type="radio" class="btn-check" name="category" id="cat-health" value="health">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
                           for="cat-health">
-                          <i class="bi bi-heart-pulse me-1"></i> Health
+                          <i class="bi bi-heart-pulse me-1"></i><span class="tile-text"> Health</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4">
+                      <div class="col-6 col-sm-4 col-xxl-3">
                         <input type="radio" class="btn-check" name="category" id="cat-hygiene" value="hygiene">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
                           for="cat-hygiene">
-                          <i class="bi bi-sparkles me-1"></i> Hygiene
+                          <i class="bi bi-stars me-1"></i><span class="tile-text"> Hygiene</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4">
+                      <div class="col-6 col-sm-4 col-xxl-3">
                         <input type="radio" class="btn-check" name="category" id="cat-kids" value="kids">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
                           for="cat-kids">
-                          <i class="bi bi-emoji-smile me-1"></i> Kids
+                          <i class="bi bi-person-heart me-1"></i><span class="tile-text"> Kids</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4">
+                      <div class="col-6 col-sm-4 col-xxl-3">
                         <input type="radio" class="btn-check" name="category" id="cat-recreation" value="recreation">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
                           for="cat-recreation">
-                          <i class="bi bi-controller me-1"></i> Recreation
+                          <i class="bi bi-film me-1"></i><span class="tile-text"> Recreation</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4">
+                      <div class="col-6 col-sm-4 col-xxl-3">
                         <input type="radio" class="btn-check" name="category" id="cat-trip" value="trip">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
                           for="cat-trip">
-                          <i class="bi bi-airplane me-1"></i> Trip
+                          <i class="bi bi-airplane me-1"></i><span class="tile-text"> Trip</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4">
-                        <input type="radio" class="btn-check" name="category" id="cat-savings" value="savings">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
-                          for="cat-savings">
-                          <i class="bi bi-piggy-bank me-1"></i> Savings
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4">
-                        <input type="radio" class="btn-check" name="category" id="cat-pension" value="pension">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
-                          for="cat-pension">
-                          <i class="bi bi-bank me-1"></i> For Retirement
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4">
-                        <input type="radio" class="btn-check" name="category" id="cat-debt" value="debt-repayment">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
-                          for="cat-debt">
-                          <i class="bi bi-credit-card me-1"></i> Debt Repayment
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4">
+                      <div class="col-6 col-sm-4 col-xxl-3">
                         <input type="radio" class="btn-check" name="category" id="cat-gift" value="gift">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
                           for="cat-gift">
-                          <i class="bi bi-gift me-1"></i> Gift
+                          <i class="bi bi-gift me-1"></i><span class="tile-text"> Gift</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4">
+                      <div class="col-6 col-sm-4 col-xxl-3">
+                        <input type="radio" class="btn-check" name="category" id="cat-savings" value="savings">
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                          for="cat-savings">
+                          <i class="bi bi-piggy-bank me-1"></i><span class="tile-text"> Savings</span>
+                        </label>
+                      </div>
+
+                      <div class="col-6 col-sm-4 col-xxl-3">
+                        <input type="radio" class="btn-check" name="category" id="cat-pension" value="pension">
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                          for="cat-pension">
+                          <i class="bi bi-bank me-1"></i><span class="tile-text"> For Retirement</span>
+                        </label>
+                      </div>
+
+                      <div class="col-6 col-sm-4 col-xxl-3">
+                        <input type="radio" class="btn-check" name="category" id="cat-debt" value="debt-repayment">
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                          for="cat-debt">
+                          <i class="bi bi-credit-card me-1"></i><span class="tile-text"> Debt Repayment</span>
+                        </label>
+                      </div>
+
+                      <div class="col-6 col-sm-4 col-xxl-3">
                         <input type="radio" class="btn-check" name="category" id="cat-other" value="other">
-                        <label
-                          class="btn btn-outline-secondary w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
                           for="cat-other">
-                          <i class="bi bi-three-dots me-1"></i> Another
+                          <i class="bi bi-three-dots me-1"></i><span class="tile-text"> Another</span>
                         </label>
                       </div>
 
@@ -256,14 +287,14 @@
                   <!-- 5. Comment / Note -->
                   <div class="mb-4">
                     <label for="comment" class="form-label fw-bold small">Comment (optional)</label>
-                    <textarea class="form-control form-control-custom" id="comment" rows="2"
+                    <textarea class="form-control form-control-custom" id="comment" rows="1"
                       placeholder="Where or what did you spend it on?"></textarea>
                   </div>
 
                   <!-- Submit Buttons -->
                   <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-danger-custom btn-lg w-100 fw-bold">Add Expense</button>
-                    <a href="index.html" class="btn btn-outline-secondary btn-lg fw-bold rounded-3">Cancel</a>
+                    <button type="submit" class="btn btn-danger-custom btn-md py-2 w-100 fw-bold">Add Expense</button>
+                    <a href="index.html" class="btn btn-outline-secondary btn-md py-2 fw-bold rounded-3">Cancel</a>
                   </div>
 
                 </form>

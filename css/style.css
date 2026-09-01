@@ -7,27 +7,38 @@
 
   /* 3. Kolor główny / Przychody / Sukces (Szałwiowa, miękka zieleń) */
   --color-primary: #558467;
-  --color-primary-hover:#3e645a;
+  --color-primary-hover: #3e645a;
   --color-primary-light: #ebefed; /* Tło pod wykresy/etykiety */
 
   /* 4. Wydatki / Ostrzeżenia (Pastelowy, zgaszony koral - nieagresywny) */
   --color-expense: #e07a5f;
   --color-expense-light: #fde8e4;
-  --color-expense-hover:#e95f3a;
+  --color-expense-hover: #e95f3a;
 
-  --color-balance: #2f3e46 ;
+  --color-balance: #2f3e46;
   --color-balance-muted: #f7ebd5;
 
 
   /* 5. Tekst i nagłówki (Ciemna, ciepła szarość zamiast czystej czerni) */
   --text-main: #2f3e46;
   --text-muted: #7f8c8d;
+  --text-white: #ffffff;
 
   /* 6. Ramki i podziały (Bardzo delikatny, ciepły szary) */
   --border-color: #e3ded5;
   --border-color-hover: #e5e1d9;
 
-  --border-radius: clamp(0.5rem, 2vw, 1rem);
+  --box-shadow: #2f3e461f;
+
+  --border-radius: 0.5rem;
+
+   /* 7. Rozmiary kontenerów */
+  --max-logo-width: clamp(11.5rem, 8rem + 10vw, 18.75rem);
+  --max-logo-height: clamp(2.375rem, 1.8rem + 1.5vw, 3rem);
+
+  --icon-min-width: 2.75rem;
+  --icon-height: 1.1rem;
+  --icon-width: 1.1rem;
 }
 
 .body-custom {
@@ -37,52 +48,10 @@
 
 .navbar-logo {
   height: auto;
-  max-height: 2.375rem;
-  max-width: 12.5rem;
-  object-fit: contain;
-}
-
-.btn-custom {
-  color: var(--bg-card);
-  border-radius: var(--border-radius);
-  border: none;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.btn-success-custom {
-  color: var(--bg-card);
-  background-color: var(--color-primary);
-}
-
-.btn-danger-custom{
-  color: var(--bg-card);
-  background-color: var(--color-expense);
-}
-
-.btn-success-custom:hover,
-.btn-success-custom:focus {
-  background-color: var(--color-primary-hover);
-  color: var(--bg-card);
-}
-
-.btn-danger-custom:hover,
-.btn-danger-custom:focus {
-  background-color: var(--color-expense-hover);
-  color: var(--bg-card);
-}
-
-.text-success-custom {
-  color: var(--color-primary);
-}
-
-.form-control-custom {
- border-radius: var(--border-radius); 
- border-color: var(--border-color);
-}
-
-.form-control-custom:focus {
-  border-color: var(--border-color);
-  box-shadow: 0 0 0 0.15rem var(--border-color-hover);
+  max-height: var(--max-logo-height);
+  max-width: var(--max-logo-width);
+  width: 100%;
+  transition: max-width 0.2s ease, max-height 0.2s ease;
 }
 
 .navbar-custom a {
@@ -94,30 +63,206 @@
 .navbar-custom a:hover,
 .navbar-custom a:active,
 .navbar-custom a:focus,
-.navbar-custom a:focus-visible{
+.navbar-custom a:focus-visible {
 background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
-border-radius: var(--border-radius); 
+}
+
+#register-form .card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control-custom {
+ border-radius: var(--border-radius); 
+ border-color: var(--border-color);
+}
+
+.form-control-custom:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.05rem var(--color-primary-light);
+}
+
+.input-group-custom {
+  transition: transform 0.2s ease;
+}
+
+.input-group-custom:focus-within {
+  transform: scale(1.01);
+  }
+
+.input-group-custom .icon-custom {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 0.875rem;
+  min-width: var(--icon-min-width);
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.input-group-custom:focus-within .icon-custom {
+  background-color: var(--color-primary);
+  color: var(--text-white);
+  border-color: var(--color-primary);
+  transition: all 0.2s ease;
+}
+
+.input-group-custom .icon-custom svg {
+  width: var(--icon-width);
+  height: var(--icon-height);
+  flex-shrink: 0;
+}
+
+.btn-success-custom {
+  color: var(--text-white);
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-success-custom:hover,
+.btn-success-custom:focus,
+.btn-success-custom:focus-visible {
+  background-color: var(--color-primary-hover) !important;
+  border-color: var(--color-primary-hover) !important;
+  color: var(--text-white) !important;
+  box-shadow: 0 0.375rem 1rem color-mix(in srgb, var(--color-primary) 30%, transparent);
+}
+
+.btn-success-custom:active {
+  background-color: var(--color-primary-hover) !important;
+  transform: scale(0.95) !important;
+  box-shadow: none !important;
+}
+
+.text-success-custom {
+  color: var(--color-primary);
+}
+
+.btn-danger-custom {
+  color: var(--text-white);
+  background-color: var(--color-expense);
+  border: 0.0625rem solid var(--color-expense);
+  transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-danger-custom:hover,
+.btn-danger-custom:focus,
+.btn-danger-custom:focus-visible {
+  background-color: var(--color-expense-hover) !important;
+  color: var(--text-white) !important;
+  border-color: var(--color-expense-hover) !important;
+  box-shadow: 0 0.375rem 1rem color-mix(in srgb, var(--color-expense) 30%, transparent);
+}
+
+.btn-danger-custom:active {
+  background-color: var(--color-expense-hover) !important;
+  transform: scale(0.95) !important;
+  box-shadow: none !important;
+}
+
+.btn-outline-custom {
+  color: var(--color-balance);
+  border: 0.0625rem solid var(--color-balance);
+  background-color: transparent;
+  transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-outline-custom:hover,
+.btn-outline-custom:focus,
+.btn-outline-custom:focus-visible {
+  background-color: var(--color-balance) !important;
+  border-color: var(--color-balance) !important;
+  color: var(--text-white) !important;
+  box-shadow: 0 0.375rem 1rem color-mix(in srgb, var(--color-balance) 25%, transparent);
+}
+
+.btn-outline-custom:active {
+  background-color: var(--color-balance) !important;
+  color: var(--text-white) !important;
+  transform: scale(0.95) !important;
+  box-shadow: none !important;
 }
 
 .expense-circle {
   background-color: var(--color-expense-light);
+  color: var(--color-expense);
 }
 
-.income-circle{
+.income-circle {
 background-color: var(--color-primary-light);
+color: var(--color-primary);
 }
 
-.balance-circle{
+.balance-circle {
   background-color: var(--color-balance-muted);
+  color: var(--color-balance);
 }
 
-.hero-width {
- max-width: 100rem;
+.tip-custom {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
-@media (min-width: 36rem) {
-  .navbar-logo {
-    max-height: 3rem;
-    max-width: 18.75rem;
+.card-expense,
+.card-income,
+.card-balance {
+  border: 2px solid transparent !important; 
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card-expense:hover,
+.card-income:hover,
+.card-balance:hover {
+  transform: translateY(-6px) scale(1.02);
+}
+
+.card-expense:hover {
+  border-color: var(--color-expense) !important;
+  box-shadow: 0 0.75rem 1.5rem color-mix(in srgb, var(--color-expense) 20%, transparent) !important;
+}
+
+.card-income:hover {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0.75rem 1.5rem color-mix(in srgb, var(--color-primary) 20%, transparent) !important;
+}
+
+.card-balance:hover {
+  border-color: var(--color-balance) !important;
+  box-shadow: 0 0.75rem 1.5rem color-mix(in srgb, var(--color-balance) 20%, transparent) !important;
+}
+
+.form-select-tile {
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.25rem;
+}
+
+.form-select-tile:hover {
+  border-color: var(--color-primary) !important;
+  background-color: var(--color-primary-light) !important;
+}
+
+/* 2. Zaznaczony kafelek otrzymuje kolor przewodni strony (zielony) */
+.btn-check:checked + .form-select-tile {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--text-white) !important;
+  box-shadow: 0 0.25rem 0.5rem color-mix(in srgb, var(--color-primary) 25%, transparent);
+}
+
+@media (max-width: 768px) {
+  .tile-text {
+    display: inline;
+    font-size: 0.9rem; /* Delikatne zmniejszenie fontu dla pewności */
+  }
+  .form-select-tile {
+    justify-content: flex-start;
+    padding: 0.4rem 0.5rem; /* Zmniejszony wewnętrzny odstęp boczny */
   }
 }
