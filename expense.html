@@ -20,7 +20,7 @@
         <div class="container d-flex align-items-center justify-content-between">
           <a class="navbar-brand d-flex align-items-center my-1" href="login.html">
 
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" alt="HomyFinance Logo"
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" role="img" aria-label="HomyFinance Logo"
               class="d-inline-block navbar-logo">
               <defs>
                 <linearGradient id="badge-bg" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -86,206 +86,208 @@
     </header>
 
     <!-- Main Form Section -->
-    <section class="flex-grow-1 d-flex align-items-center py-2 py-md-4">
+    <section class="flex-grow-1 d-flex align-items-center py-1 py-md-2">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+          <div class="col-12 col-md-11 col-lg-10 col-xl-9">
 
-            <div class="card border-0 shadow-sm rounded-4 p-2 p-md-4">
-              <div class="card-body">
+            <div class="card border-0 shadow-sm rounded-4 p-2 p-md-3">
+              <div class="card-body-custom">
 
                 <!-- Title Icon -->
-                <div class="text-center mb-4">
+                <div class="d-flex align-items-center justify-content-center gap-2 mb-2 mb-md-3">
                   <div
-                    class="rounded-circle expense-circle p-3 d-inline-flex align-items-center justify-content-center mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                    class="rounded-circle expense-circle p-2 d-inline-flex align-items-center justify-content-center mb-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                       class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
                       <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z" />
                     </svg>
                   </div>
-                  <h1 class="h3 fw-bold">Add New Expense</h1>
+                  <h1 class="h4 fw-bold mb-0">Add New Expense</h1>
                 </div>
 
                 <form>
                   <!-- 1. Amount Input -->
-                  <div class="col-12 mb-3">
-                    <label for="amount" class="form-label fw-bold small">Amount</label>
-                    <div class="input-group input-group-custom">
-                      <span class="input-group-text form-control-custom icon-custom body-custom">
-                        <i class="bi bi-wallet2"></i>
-                      </span>
-                      <input type="number" step="0.01" min="0.01" class="form-control form-control-custom" id="amount"
-                        placeholder="0.00" required>
-                      <span class="input-group-text form-control-custom icon-custom body-custom">PLN</span>
+                  <div class="row g-2 mb-3">
+                    <div class="col-12 col-md-6">
+                      <label for="amount" class="form-label fw-bold small">Amount</label>
+                      <div class="input-group input-group-custom">
+                        <span class="input-group-text form-control-custom icon-custom body-custom">
+                          <i class="bi bi-wallet2"></i>
+                        </span>
+                        <input type="number" step="0.01" min="0.01" class="form-control form-control-custom" id="amount"
+                          placeholder="0.00" required>
+                        <span class="input-group-text form-control-custom icon-custom body-custom">PLN</span>
+                      </div>
+                    </div>
+
+                    <!-- 2. Date Input -->
+                    <div class="col-12 col-md-6">
+                      <label for="date" class="form-label fw-bold small">Date</label>
+                      <div class="input-group input-group-custom">
+                        <span class="input-group-text form-control-custom icon-custom body-custom">
+                          <i class="bi bi-calendar-event"></i>
+                        </span>
+                        <input type="date" class="form-control form-control-custom" id="date" value="2026-08-14"
+                          required>
+                      </div>
                     </div>
                   </div>
-
-                  <!-- 2. Date Input -->
-                  <div class="col-12 mb-3">
-                    <label for="date" class="form-label fw-bold small">Date</label>
-                    <div class="input-group input-group-custom">
-                      <span class="input-group-text form-control-custom icon-custom body-custom">
-                        <i class="bi bi-calendar-event"></i>
-                      </span>
-                      <input type="date" class="form-control form-control-custom" id="date" value="2026-08-14" required>
-                    </div>
-                  </div>
-
 
                   <!-- 3. Payment Method (Radio Buttons) -->
-                  <div class="mb-3">
-                    <label class="form-label fw-bold small d-block">Payment Method</label>
+                  <fieldset class="mb-3 border-0 p-0 m-0">
+                    <legend class="form-label fw-bold small d-block">Payment Method</legend>
                     <div class="row g-2">
 
                       <div class="col-12 col-sm-4">
                         <input type="radio" class="btn-check" name="paymentMethod" id="pay-cash" value="cash" checked>
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="pay-cash" title="Cash">
-                          <i class="bi bi-cash-stack me-1"></i><span class="tile-text"> Cash</span>
+                          <i class="bi bi-cash-stack me-1"></i><span class="tile-text-custom"> Cash</span>
                         </label>
                       </div>
 
                       <div class="col-12 col-sm-4">
                         <input type="radio" class="btn-check" name="paymentMethod" id="pay-debit" value="debit-card">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="pay-debit" title="Debit Card">
-                          <i class="bi bi-credit-card me-1"></i><span class="tile-text"> Debit Card</span>
+                          <i class="bi bi-credit-card me-1"></i><span class="tile-text-custom"> Debit Card</span>
                         </label>
                       </div>
 
                       <div class="col-12 col-sm-4">
                         <input type="radio" class="btn-check" name="paymentMethod" id="pay-credit" value="credit-card">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="pay-credit" title="Credit Card">
-                          <i class="bi bi-credit-card-2-front me-1"></i><span class="tile-text"> Credit Card</span>
+                          <i class="bi bi-credit-card-2-front me-1"></i><span class="tile-text-custom"> Credit Card</span>
                         </label>
                       </div>
 
                     </div>
-                  </div>
+                  </fieldset>
 
 
                   <!-- 4. Category (Radio Buttons) -->
-                  <div class="mb-3">
-                    <label class="form-label fw-bold small d-block">Category</label>
+                  <fieldset class="mb-3 border-0 p-0 m-0">
+                    <legend class="form-label fw-bold small d-block">Category</legend>
                     <div class="row g-2">
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-food" value="food" checked>
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small" for="cat-food">
-                          <i class="bi bi-cart me-1"></i><span class="tile-text"> Food</span>
+                        <label class="btn form-select-tile w-100 text-truncate" for="cat-food">
+                          <i class="bi bi-cart me-1"></i><span class="tile-text-custom"> Food</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-apartments" value="apartments">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-apartments">
-                          <i class="bi bi-house-door me-1"></i><span class="tile-text"> Apartments</span>
+                          <i class="bi bi-house-door me-1"></i><span class="tile-text-custom"> Apartments</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-transport" value="transport">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-transport">
-                          <i class="bi bi-car-front me-1"></i><span class="tile-text"> Transport</span>
+                          <i class="bi bi-car-front me-1"></i><span class="tile-text-custom"> Transport</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-telecom" value="telecom">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-telecom">
-                          <i class="bi bi-phone me-1"></i><span class="tile-text"> Telecom</span>
+                          <i class="bi bi-phone me-1"></i><span class="tile-text-custom"> Telecom</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-health" value="health">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-health">
-                          <i class="bi bi-heart-pulse me-1"></i><span class="tile-text"> Health</span>
+                          <i class="bi bi-heart-pulse me-1"></i><span class="tile-text-custom"> Health</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-hygiene" value="hygiene">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-hygiene">
-                          <i class="bi bi-stars me-1"></i><span class="tile-text"> Hygiene</span>
+                          <i class="bi bi-stars me-1"></i><span class="tile-text-custom"> Hygiene</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-kids" value="kids">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-kids">
-                          <i class="bi bi-person-heart me-1"></i><span class="tile-text"> Kids</span>
+                          <i class="bi bi-person-heart me-1"></i><span class="tile-text-custom"> Kids</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-recreation" value="recreation">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-recreation">
-                          <i class="bi bi-film me-1"></i><span class="tile-text"> Recreation</span>
+                          <i class="bi bi-film me-1"></i><span class="tile-text-custom"> Recreation</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-trip" value="trip">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-trip">
-                          <i class="bi bi-airplane me-1"></i><span class="tile-text"> Trip</span>
+                          <i class="bi bi-airplane me-1"></i><span class="tile-text-custom"> Trip</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-gift" value="gift">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-gift">
-                          <i class="bi bi-gift me-1"></i><span class="tile-text"> Gift</span>
+                          <i class="bi bi-gift me-1"></i><span class="tile-text-custom"> Gift</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-savings" value="savings">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-savings">
-                          <i class="bi bi-piggy-bank me-1"></i><span class="tile-text"> Savings</span>
+                          <i class="bi bi-piggy-bank me-1"></i><span class="tile-text-custom"> Savings</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-pension" value="pension">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-pension">
-                          <i class="bi bi-bank me-1"></i><span class="tile-text"> For Retirement</span>
+                          <i class="bi bi-bank me-1"></i><span class="tile-text-custom"> For Retirement</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-debt" value="debt-repayment">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-debt">
-                          <i class="bi bi-credit-card me-1"></i><span class="tile-text"> Debt Repayment</span>
+                          <i class="bi bi-credit-card me-1"></i><span class="tile-text-custom"> Debt Repayment</span>
                         </label>
                       </div>
 
-                      <div class="col-6 col-sm-4 col-xxl-3">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <input type="radio" class="btn-check" name="category" id="cat-other" value="other">
-                        <label class="btn form-select-tile w-100 text-start py-2 px-3 rounded-3 small text-truncate"
+                        <label class="btn form-select-tile w-100 text-truncate"
                           for="cat-other">
-                          <i class="bi bi-three-dots me-1"></i><span class="tile-text"> Another</span>
+                          <i class="bi bi-three-dots me-1"></i><span class="tile-text-custom"> Another</span>
                         </label>
                       </div>
 
                     </div>
-                  </div>
+                  </fieldset>
 
                   <!-- 5. Comment / Note -->
-                  <div class="mb-4">
+                  <div class="mb-3">
                     <label for="comment" class="form-label fw-bold small">Comment (optional)</label>
                     <textarea class="form-control form-control-custom" id="comment" rows="1"
                       placeholder="Where or what did you spend it on?"></textarea>

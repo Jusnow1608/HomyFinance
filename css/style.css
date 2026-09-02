@@ -113,75 +113,75 @@ background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
   flex-shrink: 0;
 }
 
-.btn-success-custom {
+.btn.btn-success-custom {
   color: var(--text-white);
   background-color: var(--color-primary);
-  border: 1px solid var(--color-primary);
+  border: 0.0625rem solid var(--color-primary);
   transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.btn-success-custom:hover,
-.btn-success-custom:focus,
-.btn-success-custom:focus-visible {
-  background-color: var(--color-primary-hover) !important;
-  border-color: var(--color-primary-hover) !important;
-  color: var(--text-white) !important;
+.btn.btn-success-custom:hover,
+.btn.btn-success-custom:focus,
+.btn.btn-success-custom:focus-visible {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  color: var(--text-white);
   box-shadow: 0 0.375rem 1rem color-mix(in srgb, var(--color-primary) 30%, transparent);
 }
 
-.btn-success-custom:active {
-  background-color: var(--color-primary-hover) !important;
-  transform: scale(0.95) !important;
-  box-shadow: none !important;
+.btn.btn-success-custom:active {
+  background-color: var(--color-primary-hover);
+  transform: scale(0.95);
+  box-shadow: none;
 }
 
 .text-success-custom {
   color: var(--color-primary);
 }
 
-.btn-danger-custom {
+.btn.btn-danger-custom {
   color: var(--text-white);
   background-color: var(--color-expense);
   border: 0.0625rem solid var(--color-expense);
   transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.btn-danger-custom:hover,
-.btn-danger-custom:focus,
-.btn-danger-custom:focus-visible {
-  background-color: var(--color-expense-hover) !important;
-  color: var(--text-white) !important;
-  border-color: var(--color-expense-hover) !important;
+.btn.btn-danger-custom:hover,
+.btn.btn-danger-custom:focus,
+.btn.btn-danger-custom:focus-visible {
+  background-color: var(--color-expense-hover);
+  color: var(--text-white);
+  border-color: var(--color-expense-hover);
   box-shadow: 0 0.375rem 1rem color-mix(in srgb, var(--color-expense) 30%, transparent);
 }
 
-.btn-danger-custom:active {
-  background-color: var(--color-expense-hover) !important;
-  transform: scale(0.95) !important;
-  box-shadow: none !important;
+.btn.btn-danger-custom:active {
+  background-color: var(--color-expense-hover);
+  transform: scale(0.95);
+  box-shadow: none;
 }
 
-.btn-outline-custom {
+.btn.btn-outline-custom {
   color: var(--color-balance);
   border: 0.0625rem solid var(--color-balance);
   background-color: transparent;
   transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.btn-outline-custom:hover,
-.btn-outline-custom:focus,
-.btn-outline-custom:focus-visible {
-  background-color: var(--color-balance) !important;
-  border-color: var(--color-balance) !important;
-  color: var(--text-white) !important;
+.btn.btn-outline-custom:hover,
+.btn.btn-outline-custom:focus,
+.btn.btn-outline-custom:focus-visible {
+  background-color: var(--color-balance);
+  border-color: var(--color-balance);
+  color: var(--text-white);
   box-shadow: 0 0.375rem 1rem color-mix(in srgb, var(--color-balance) 25%, transparent);
 }
 
-.btn-outline-custom:active {
-  background-color: var(--color-balance) !important;
-  color: var(--text-white) !important;
-  transform: scale(0.95) !important;
-  box-shadow: none !important;
+.btn.btn-outline-custom:active {
+  background-color: var(--color-balance);
+  color: var(--text-white);
+  transform: scale(0.95);
+  box-shadow: none;
 }
 
 .expense-circle {
@@ -204,65 +204,74 @@ color: var(--color-primary);
   color: var(--color-primary);
 }
 
-.card-expense,
-.card-income,
-.card-balance {
-  border: 2px solid transparent !important; 
+.card.card-expense { 
+  --card-theme: var(--color-expense); 
+}
+.card.card-income  { 
+  --card-theme: var(--color-primary); 
+}
+.card.card-balance { 
+  --card-theme: var(--color-balance); 
+}
+
+.card.card-expense,
+.card.card-income,
+.card.card-balance {
+  border: 0.125rem solid transparent; 
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
-.card-expense:hover,
-.card-income:hover,
-.card-balance:hover {
-  transform: translateY(-6px) scale(1.02);
+.card.card-expense:hover,
+.card.card-income:hover,
+.card.card-balance:hover {
+  transform: translateY(-0.375rem) scale(1.02);
+  border-color: var(--card-theme);
+  box-shadow: 0 0.75rem 1.5rem color-mix(in srgb, var(--card-theme) 20%, transparent);
 }
 
-.card-expense:hover {
-  border-color: var(--color-expense) !important;
-  box-shadow: 0 0.75rem 1.5rem color-mix(in srgb, var(--color-expense) 20%, transparent) !important;
-}
-
-.card-income:hover {
-  border-color: var(--color-primary) !important;
-  box-shadow: 0 0.75rem 1.5rem color-mix(in srgb, var(--color-primary) 20%, transparent) !important;
-}
-
-.card-balance:hover {
-  border-color: var(--color-balance) !important;
-  box-shadow: 0 0.75rem 1.5rem color-mix(in srgb, var(--color-balance) 20%, transparent) !important;
-}
-
-.form-select-tile {
+.btn.form-select-tile {
   color: var(--text-main);
-  border: 1px solid var(--border-color);
+  border: 0.0625rem solid var(--border-color);
   background-color: var(--bg-card);
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.4rem 0.25rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: var(--border-radius);
+  font-size: 0.875rem;
 }
 
-.form-select-tile:hover {
-  border-color: var(--color-primary) !important;
-  background-color: var(--color-primary-light) !important;
+.btn.form-select-tile:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
 }
 
-/* 2. Zaznaczony kafelek otrzymuje kolor przewodni strony (zielony) */
-.btn-check:checked + .form-select-tile {
-  background-color: var(--color-primary) !important;
-  border-color: var(--color-primary) !important;
-  color: var(--text-white) !important;
+.btn-check:checked + .btn.form-select-tile {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--text-white);
   box-shadow: 0 0.25rem 0.5rem color-mix(in srgb, var(--color-primary) 25%, transparent);
 }
 
-@media (max-width: 768px) {
-  .tile-text {
-    display: inline;
-    font-size: 0.9rem; /* Delikatne zmniejszenie fontu dla pewności */
+@media (min-width: 48rem) {
+  .card-body-custom {
+    padding: 1rem;
   }
-  .form-select-tile {
-    justify-content: flex-start;
-    padding: 0.4rem 0.5rem; /* Zmniejszony wewnętrzny odstęp boczny */
+  
+  .tile-text-custom {
+    display: inline;
+    font-size: 0.8rem;
+    line-height: 1.1;
+  }
+  .btn.form-select-tile {
+    padding: 0.2rem 0.4rem;
+  }
+
+  .form-control-custom,
+  .input-group-text {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    font-size: 0.875rem;
   }
 }
