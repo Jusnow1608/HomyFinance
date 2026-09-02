@@ -11,7 +11,7 @@
   --color-primary-light: #ebefed; /* Tło pod wykresy/etykiety */
 
   /* 4. Wydatki / Ostrzeżenia (Pastelowy, zgaszony koral - nieagresywny) */
-  --color-expense: #e07a5f;
+  --color-expense: #f1704c;
   --color-expense-light: #fde8e4;
   --color-expense-hover: #e95f3a;
 
@@ -135,7 +135,9 @@ background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
   box-shadow: none;
 }
 
-.text-success-custom {
+a.text-success-custom,
+h5.text-success-custom,
+.text-end.text-success-custom {
   color: var(--color-primary);
 }
 
@@ -252,6 +254,24 @@ color: var(--color-primary);
   border-color: var(--color-primary);
   color: var(--text-white);
   box-shadow: 0 0.25rem 0.5rem color-mix(in srgb, var(--color-primary) 25%, transparent);
+}
+
+.table-incomes tbody tr {
+  color: var(--text-main);
+  transition: background-color 0.15s ease-in-out;
+}
+
+.table-incomes.table-hover > tbody > tr:hover > * {
+  --bs-table-bg-state: var(--color-primary-light);
+}
+
+.table-expenses.table-hover > tbody > tr:hover > * {
+  --bs-table-bg-state: var(--color-expense-light);
+}
+
+h5.text-expense-custom,
+.text-end.text-expense-custom {
+  color: var(--color-expense);
 }
 
 @media (min-width: 48rem) {

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>HomyFinance - Balance</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+</head>
+
+<body class="body-custom">
+  <main class="d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+        <div class="container d-flex align-items-center justify-content-between">
+          <a class="navbar-brand d-flex align-items-center my-1" href="login.html">
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" role="img" aria-label="HomyFinance Logo"
+              class="d-inline-block navbar-logo">
+              <defs>
+                <linearGradient id="badge-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="100%" stop-color="#f4efe6" />
+                </linearGradient>
+                <linearGradient id="note-green" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#52796f" />
+                  <stop offset="100%" stop-color="#2f3e46" />
+                </linearGradient>
+                <linearGradient id="gold-money" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f3b61f" />
+                  <stop offset="100%" stop-color="#e07a5f" />
+                </linearGradient>
+                <filter id="soft-shadow" x="-10%" y="-10%" width="130%" height="130%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2f3e46" flood-opacity="0.12" />
+                </filter>
+                <filter id="note-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#2f3e46" flood-opacity="0.2" />
+                </filter>
+              </defs>
+
+              <g id="logo-badge" filter="url(#soft-shadow)">
+                <rect x="5" y="5" width="60" height="60" rx="18" fill="url(#badge-bg)" stroke="#e8dfd1"
+                  stroke-width="1.5" />
+                <g id="money-note" filter="url(#note-shadow)">
+                  <rect x="17" y="19" width="36" height="32" rx="6" fill="url(#note-green)" />
+                  <rect x="20" y="22" width="30" height="26" rx="4" fill="none" stroke="#ffffff" stroke-width="1.2"
+                    opacity="0.4" stroke-dasharray="3 1.5" />
+                  <circle cx="35" cy="35" r="8.5" fill="url(#gold-money)" />
+                  <text x="35" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="13"
+                    font-weight="900" fill="#ffffff" text-anchor="middle">$</text>
+                </g>
+              </g>
+
+              <g id="logo-text">
+                <text x="80" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="35" font-weight="800"
+                  letter-spacing="-0.5px">
+                  <tspan fill="#2f3e46">Homy</tspan>
+                  <tspan fill="#558467">Finance</tspan>
+                </text>
+              </g>
+            </svg>
+          </a>
+
+          <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto navbar-custom">
+              <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link px-3" href="expense.html">Add Expense</a></li>
+              <li class="nav-item"><a class="nav-link px-3" href="#">Add Income</a></li>
+              <li class="nav-item"><a class="nav-link active px-3" aria-current="page" href="balance.html">View Balance</a></li>
+              <li class="nav-item"><a class="nav-link px-3" href="#">Settings</a></li>
+              <li class="nav-item"><a class="nav-link px-3" href="login.html">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+<!-- Main Balance Content -->
+    <section class="flex-grow-1 py-4">
+      <div class="container">
+        
+        <!-- Top Section: Title & Dropdown Period Filter (Right aligned) -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+          <div class="d-flex align-items-center gap-2">
+            <div class="rounded-circle balance-circle p-2 d-inline-flex align-items-center justify-content-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M7.5 1.018a7 7 0 1 0 7.481 7.481A.5.5 0 0 0 14.5 8h-6a.5.5 0 0 1-.5-.5V1.5a.5.5 0 0 0-.5-.482zM8 0a8 8 0 1 1-8 8A8 8 0 0 1 8 0z"/>
+                <path d="M8.5 1.5v6.5H15A6.5 6.5 0 0 0 8.5 1.5z"/>
+              </svg>
+            </div>
+            <h1 class="h4 fw-bold mb-0">Balance</h1>
+          </div>
+          
+          <!-- Filter Dropdown Menu -->
+          <div class="d-flex align-items-center gap-2 bg-white p-2 rounded-3 shadow-sm border">
+            <label for="periodSelect" class="form-label fw-bold small mb-0 text-nowrap d-flex align-items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z"/>
+                <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+              </svg> Period:
+            </label>
+            <select class="form-select form-select-sm form-control-custom border-0 fw-medium" id="periodSelect">
+              <option value="current_month" selected>Current Month</option>
+              <option value="previous_month">Previous Month</option>
+              <option value="current_year">Current Year</option>
+              <option value="custom">Custom Period...</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Incomes & Expenses Tables Grid -->
+        <div class="row g-4 mb-4">
+          
+          <!-- Table 1: Incomes by Category -->
+          <div class="col-12 col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+              <div class="card-body p-2 d-flex flex-column">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <div class="rounded-circle income-circle p-2 d-inline-flex align-items-center justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                    </svg>
+                  </div>
+                  <h5 class="fw-bold text-success-custom mb-0">Incomes</h5>
+                </div>
+
+                <div class="table-responsive flex-grow-1">
+                  <table class="table table-hover table-incomes align-middle mb-0">
+                    <thead class="table-light">
+                      <tr class="small text-muted">
+                        <th>Category</th>
+                        <th class="text-end">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-muted me-2" viewBox="0 0 16 16">
+                            <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zM1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5z"/>
+                            <path d="M8 8.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                            <path d="M2 5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1A.5.5 0 0 1 2 5m11 6a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1 0-1h1a.5.5 0 0 1 .5.5"/>
+                          </svg>
+                          Salary
+                        </td>
+                        <td class="text-end fw-bold text-success-custom">4000.00 PLN</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-muted me-2" viewBox="0 0 16 16">
+                            <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                            <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm10 7a1 1 0 1 1 0-2 1 1 0 0 1 0 2m0-4a1 1 0 1 1 0-2 1 1 0 0 1 0 2M4 7a1 1 0 1 1 0-2 1 1 0 0 1 0 2m0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
+                          </svg>
+                          Allegro Sales
+                        </td>
+                        <td class="text-end fw-bold text-success-custom">500.00 PLN</td>
+                      </tr>
+                    </tbody>
+                    <tfoot class="table-group-divider fw-bold">
+                      <tr>
+                        <td>Total Income:</td>
+                        <td class="text-end text-success-custom fs-6">4500.00 PLN</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table 2: Expenses by Category (Sorted Descending) -->
+          <div class="col-12 col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+              <div class="card-body p-2 d-flex flex-column">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <div class="rounded-circle expense-circle p-2 d-inline-flex align-items-center justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z"/>
+                    </svg>
+                  </div>
+                  <h5 class="fw-bold text-expense-custom mb-0">Expenses</h5>
+                </div>
+
+                <div class="table-responsive flex-grow-1">
+                  <table class="table table-hover table-expenses align-middle mb-0">
+                    <thead class="table-light">
+                      <tr class="small text-muted">
+                        <th>Category</th>
+                        <th class="text-end">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-muted me-2" viewBox="0 0 16 16">
+                            <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                          </svg>
+                          Apartments
+                        </td>
+                        <td class="text-end fw-bold text-expense-custom">1200.00 PLN</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-muted me-2" viewBox="0 0 16 16">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                          </svg>
+                          Food
+                        </td>
+                        <td class="text-end fw-bold text-expense-custom">850.00 PLN</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-muted me-2" viewBox="0 0 16 16">
+                            <path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1h-2v2h2zm-2 3h2v2h-2zm2 3h-2v2h2zm-2 3h2v2h-2zm2 3h-2v2h2z"/>
+                          </svg>
+                          Recreation
+                        </td>
+                        <td class="text-end fw-bold text-expense-custom">500.00 PLN</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-muted me-2" viewBox="0 0 16 16">
+                            <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.724.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.833a2.5 2.5 0 0 1-1-1.997v-.413q0-.248.049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848zM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z"/>
+                          </svg>
+                          Transport
+                        </td>
+                        <td class="text-end fw-bold text-expense-custom">300.00 PLN</td>
+                      </tr>
+                    </tbody>
+                    <tfoot class="table-group-divider fw-bold">
+                      <tr>
+                        <td>Total Expenses:</td>
+                        <td class="text-end text-expense-custom fs-6">2850.00 PLN</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+                <!-- Final Balance Card & Congratulation / Warning Message -->
+        <div class="row justify-content-center mb-4">
+          <div class="col-12">
+            
+            <!-- Positive Balance Example -->
+            <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4 text-center">
+              <div class="card-body p-2">
+                <h3 class="h5 text-muted fw-bold mb-2">Total Financial Balance</h3>
+                
+                <div class="d-inline-block px-4 py-2 rounded-pill income-circle mb-3">
+                  <span class="fs-2 fw-extrabold text-success-custom">+1650.00 PLN</span>
+                </div>
+
+                <div class="alert alert-success d-inline-flex align-items-center gap-2 mb-0 px-4 py-2 rounded-3 border-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M7 6.5C7 5.672 6.552 5 6 5s-1 .672-1 1.5S5.448 8 6 8s1-.672 1-1.5M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M10 6.5c0-.828.448-1.5 1-1.5s1 .672 1 1.5s-.448 1.5-1 1.5s-1-.672-1-1.5"/>
+                  </svg>
+                  <span class="fw-bold">Congratulations! Great job managing your finances!</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Note: For negative outcome:
+            <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4 text-center mt-3">
+              <div class="card-body p-2">
+                <h3 class="h5 text-muted fw-bold mb-2">Total Financial Balance</h3>
+                <div class="d-inline-block px-4 py-2 rounded-pill expense-circle mb-3">
+                  <span class="fs-2 fw-extrabold text-danger">-350.00 PLN</span>
+                </div>
+                <div class="alert alert-danger d-inline-flex align-items-center gap-2 mb-0 px-4 py-2 rounded-3 border-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                  </svg>
+                  <span class="fw-bold">Careful, you are falling into debt!</span>
+                </div>
+              </div>
+            </div>
+            -->
+
+          </div>
+        </div>
+
+<!-- Expense Chart Section (Donut Chart with Icons) -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4">
+              <div class="card-body">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <div class="rounded-circle balance-circle p-2 d-inline-flex align-items-center justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                    </svg>
+                  </div>
+                  <h5 class="fw-bold mb-0">Expense Distribution</h5>
+                </div>
+                
+                <!-- Chart Canvas Container -->
+                <div class="d-flex justify-content-center align-items-center" style="position: relative; height: 320px; width: 100%;">
+                  <canvas id="expenseChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Modal for Custom Date Range -->
+    <div class="modal fade" id="customDateModal" tabindex="-1" aria-labelledby="customDateModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow">
+          <div class="modal-header border-bottom-0 pb-0">
+            <h5 class="modal-title fw-bold" id="customDateModalLabel">Select Custom Date Range</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-3">
+            <form id="customDateForm">
+              <div class="mb-3">
+                <label for="startDate" class="form-label fw-bold small">Start Date</label>
+                <div class="input-group input-group-custom">
+                  <span class="input-group-text form-control-custom icon-custom body-custom">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                    </svg>
+                  </span>
+                  <input type="date" class="form-control form-control-custom" id="startDate" required>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="endDate" class="form-label fw-bold small">End Date</label>
+                <div class="input-group input-group-custom">
+                  <span class="input-group-text form-control-custom icon-custom body-custom">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                    </svg>
+                  </span>
+                  <input type="date" class="form-control form-control-custom" id="endDate" required>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer border-top-0 pt-0">
+            <button type="button" class="btn btn-outline-secondary rounded-3 fw-bold" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success-custom rounded-3 fw-bold" data-bs-dismiss="modal">Apply Filter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-top py-3 text-center text-muted small mt-auto">
+      <div class="container">
+        &copy; 2026 HomyFinance. All Rights Reserved.
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JavaScript scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+ <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Custom Modal Logic
+      const periodSelect = document.getElementById("periodSelect");
+      const customDateModal = new bootstrap.Modal(document.getElementById("customDateModal"));
+
+      periodSelect.addEventListener("change", (e) => {
+        if (e.target.value === "custom") {
+          customDateModal.show();
+        }
+      });
+
+      // SVG Icons Data URLs to render directly on the Donut Chart slices
+      const svgApartments = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='%23ffffff' viewBox='0 0 16 16'><path d='M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z'/></svg>";
+      const svgFood = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='%23ffffff' viewBox='0 0 16 16'><path d='M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4'/></svg>";
+      const svgRecreation = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='%23ffffff' viewBox='0 0 16 16'><path d='M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8z'/></svg>";
+      const svgTransport = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='%23ffffff' viewBox='0 0 16 16'><path d='M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.724.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.833a2.5 2.5 0 0 1-1-1.997v-.413q0-.248.049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848z'/></svg>";
+
+      // Preload Images
+      const iconImages = [svgApartments, svgFood, svgRecreation, svgTransport].map(src => {
+        const img = new Image();
+        img.src = src;
+        return img;
+      });
+
+      // Register DataLabels Plugin
+      Chart.register(ChartDataLabels);
+
+      // Initialize Donut Chart
+      const ctx = document.getElementById('expenseChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Apartments', 'Food', 'Recreation', 'Transport'],
+          datasets: [{
+            data: [1200, 850, 500, 300],
+            backgroundColor: [
+              '#e76f51',
+              '#f4a261',
+              '#e9c46a',
+              '#2a9d8f'
+            ],
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                font: {
+                  family: 'system-ui, -apple-system, sans-serif',
+                  size: 14,
+                  weight: '600'
+                },
+                padding: 16
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return ` ${context.label}: ${context.raw.toFixed(2)} PLN`;
+                }
+              }
+            },
+            datalabels: {
+              display: true,
+              formatter: () => '', // Suppress text display
+              allowOverlap: false,
+              // Custom Icon Drawing on Chart Segments
+              listeners: {
+                draw: function(context) {
+                  const chartCtx = context.chart.ctx;
+                  const element = context.dataset.data[context.dataIndex];
+                  const img = iconImages[context.dataIndex];
+                  const point = context.active ? context.element.tooltipPosition() : context.element.tooltipPosition();
+                  
+                  if (img && img.complete) {
+                    const size = 22;
+                    chartCtx.drawImage(img, point.x - size / 2, point.y - size / 2, size, size);
+                  }
+                }
+              }
+            }
+          },
+          cutout: '62%'
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>
