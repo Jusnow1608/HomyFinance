@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="fav-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f4efe6" />
+    </linearGradient>
+    <linearGradient id="fav-note" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#52796f" />
+      <stop offset="100%" stop-color="#2f3e46" />
+    </linearGradient>
+    <linearGradient id="fav-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f3b61f" />
+      <stop offset="100%" stop-color="#e07a5f" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Tło z zaokrąglonymi rogami -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#fav-bg)" stroke="#e8dfd1" stroke-width="2" />
+  
+  <!-- Banknot -->
+  <rect x="12" y="16" width="40" height="32" rx="6" fill="url(#fav-note)" />
+  <rect x="15" y="19" width="34" height="26" rx="4" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.4" stroke-dasharray="3 1.5" />
+  
+  <!-- Moneta ze znakiem $ -->
+  <circle cx="32" cy="32" r="9" fill="url(#fav-gold)" />
+  <text x="32" y="37" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle">$</text>
+</svg>

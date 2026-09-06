@@ -15,7 +15,7 @@
   --color-expense-light: #fde8e4;
   --color-expense-hover: #e95f3a;
 
-  --color-balance: #2f3e46;
+  --color-balance: #2f3c44;
   --color-balance-muted: #f7ebd5;
 
 
@@ -39,11 +39,29 @@
   --icon-min-width: 2.75rem;
   --icon-height: 1.1rem;
   --icon-width: 1.1rem;
+
+ /* 8. Fonty i wagi*/
+ --font-family-base: "Plus Jakarta Sans", sans-serif;
+
+ --font-weight-semibold: 600;
+
+/* Płynne rozmiary czcionek z funkcją clamp(min, val, max) */
+ --font-size-xs: clamp(0.7rem, 0.7rem + 0.25vw, 0.75rem);   /* ~12px - 13.6px */
+  --font-size-sm: clamp(0.8125rem, 0.78rem + 0.3vw, 0.9375rem); /* ~13px - 15px */
+  --font-size-base: clamp(0.9375rem, 0.9rem + 0.4vw, 1.0625rem); /* ~15px - 17px */
+
+  /* 2. PŁYNNE ODSTĘPY (Fluid Spacing) */
+  --spacing-xs: clamp(0.2rem, 0.15rem + 0.2vw, 0.35rem);
+  --spacing-sm: clamp(0.375rem, 0.3rem + 0.3vw, 0.5rem);
+  --spacing-md: clamp(0.75rem, 0.65rem + 0.5vw, 1rem);
+  --spacing-lg: clamp(1rem, 0.85rem + 0.8vw, 1.5rem);
 }
 
-.body-custom {
+body.body-custom {
   background-color: var(--bg-main);
   color: var(--text-main);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
 }
 
 .navbar-logo {
@@ -71,9 +89,26 @@ background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.input-group-custom > .form-control-custom {
+  border-color: var(--border-color);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.form-label-custom {
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-main);
+  margin-block-end: var(--spacing-xs);
+}
+
 .form-control-custom {
- border-radius: var(--border-radius); 
- border-color: var(--border-color);
+  padding-block: var(--spacing-xs);
+  padding-inline: var(--spacing-sm);
+  font-size: var(--font-size-sm);
 }
 
 .form-control-custom:focus {
@@ -89,15 +124,29 @@ background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
   transform: scale(1.01);
   }
 
-.input-group-custom .icon-custom {
+.input-group-custom > .icon-custom {
   background-color: var(--color-primary-light);
   color: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-inline: 0.875rem;
+  padding-inline: var(--spacing-md);
   min-width: var(--icon-min-width);
   transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  border: 0.0625rem solid var(--border-color);
+}
+
+.input-group-custom > .icon-custom:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  border-inline-start: none;
+  border-inline-end: 0.0625rem solid var(--border-color);
 }
 
 .input-group-custom:focus-within .icon-custom {
@@ -107,7 +156,7 @@ background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
   transition: all 0.2s ease;
 }
 
-.input-group-custom .icon-custom svg {
+.input-group-custom > .icon-custom > svg {
   width: var(--icon-width);
   height: var(--icon-height);
   flex-shrink: 0;
@@ -117,6 +166,8 @@ background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
   color: var(--text-white);
   background-color: var(--color-primary);
   border: 0.0625rem solid var(--color-primary);
+  padding-block: var(--spacing-sm);
+  padding-inline: var(--spacing-md);
   transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -135,8 +186,19 @@ background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
   box-shadow: none;
 }
 
-a.text-success-custom,
-h5.text-success-custom,
+a.text-success-custom {
+  color: var(--color-primary);
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+a.text-success-custom:hover,
+a.text-success-custom:focus {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+h2.text-success-custom,
 .text-end.text-success-custom {
   color: var(--color-primary);
 }
@@ -145,6 +207,8 @@ h5.text-success-custom,
   color: var(--text-white);
   background-color: var(--color-expense);
   border: 0.0625rem solid var(--color-expense);
+  padding-block: var(--spacing-sm);
+  padding-inline: var(--spacing-md);
   transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -167,6 +231,8 @@ h5.text-success-custom,
   color: var(--color-balance);
   border: 0.0625rem solid var(--color-balance);
   background-color: transparent;
+  padding-block: var(--spacing-sm);
+  padding-inline: var(--spacing-md);
   transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -201,8 +267,8 @@ color: var(--color-primary);
   color: var(--color-balance);
 }
 
-.tip-custom {
-  background-color: var(--color-primary-light);
+.tip-circle {
+  background-color: var(--color-balance-muted);
   color: var(--color-primary);
 }
 
@@ -239,9 +305,10 @@ color: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.4rem 0.5rem;
+  padding-block: var(--spacing-sm);
+  padding-inline: var(--spacing-md);
   border-radius: var(--border-radius);
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
 }
 
 .btn.form-select-tile:hover {
@@ -269,29 +336,43 @@ color: var(--color-primary);
   --bs-table-bg-state: var(--color-expense-light);
 }
 
-h5.text-expense-custom,
+h2.text-expense-custom,
 .text-end.text-expense-custom {
   color: var(--color-expense);
 }
 
 @media (min-width: 48rem) {
   .card-body-custom {
-    padding: 1rem;
+    padding: var(--spacing-lg);
   }
   
   .tile-text-custom {
     display: inline;
-    font-size: 0.8rem;
+    font-size: var( --font-size-xs);
     line-height: 1.1;
   }
   .btn.form-select-tile {
-    padding: 0.2rem 0.4rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
   }
 
-  .form-control-custom,
-  .input-group-text {
+  .form-control-custom {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

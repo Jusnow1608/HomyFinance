@@ -3,171 +3,189 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="description"
+    content="HomyFinance - Your personal home budget management center. Track expenses, incomes, and control your financial balance easily.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta property="og:title" content="HomyFinance - Personal Finance Tracker">
+  <meta property="og:description"
+    content="Take control of your household budget. Track incomes, expenses, and view clear visual balances.">
+  <meta property="og:type" content="website">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 
-  <title>HomyFinance</title>
+  <title>HomyFinance - Homepage</title>
 
 
 </head>
 
 <body class="body-custom">
-  <main class="d-flex flex-column min-vh-100">
-    <!-- Logo & Navbar-->
 
-    <header>
+  <!-- Logo & Navbar-->
+  <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="navbar-brand d-flex align-items-center my-1" href="login.html">
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
-        <div class="container d-flex align-items-center justify-content-between">
-          <a class="navbar-brand d-flex align-items-center my-1" href="login.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" role="img" aria-label="HomyFinance Logo"
+          class="d-inline-block navbar-logo">
+          <defs>
+            <linearGradient id="badge-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="100%" stop-color="#f4efe6" />
+            </linearGradient>
+            <linearGradient id="note-green" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#52796f" />
+              <stop offset="100%" stop-color="#2f3e46" />
+            </linearGradient>
+            <linearGradient id="gold-money" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f3b61f" />
+              <stop offset="100%" stop-color="#e07a5f" />
+            </linearGradient>
+            <filter id="soft-shadow" x="-10%" y="-10%" width="130%" height="130%">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2f3e46" flood-opacity="0.12" />
+            </filter>
+            <filter id="note-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#2f3e46" flood-opacity="0.2" />
+            </filter>
+          </defs>
 
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" role="img" aria-label="HomyFinance Logo"
-              class="d-inline-block navbar-logo">
-              <defs>
-                <linearGradient id="badge-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#ffffff" />
-                  <stop offset="100%" stop-color="#f4efe6" />
-                </linearGradient>
-                <linearGradient id="note-green" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#52796f" />
-                  <stop offset="100%" stop-color="#2f3e46" />
-                </linearGradient>
-                <linearGradient id="gold-money" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#f3b61f" />
-                  <stop offset="100%" stop-color="#e07a5f" />
-                </linearGradient>
-                <filter id="soft-shadow" x="-10%" y="-10%" width="130%" height="130%">
-                  <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2f3e46" flood-opacity="0.12" />
-                </filter>
-                <filter id="note-shadow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#2f3e46" flood-opacity="0.2" />
-                </filter>
-              </defs>
+          <g id="logo-badge" aria-hidden="true" focusable="false" filter="url(#soft-shadow)">
+            <rect x="5" y="5" width="60" height="60" rx="18" fill="url(#badge-bg)" stroke="#e8dfd1"
+              stroke-width="1.5" />
+            <g id="money-note" filter="url(#note-shadow)">
+              <rect x="17" y="19" width="36" height="32" rx="6" fill="url(#note-green)" />
+              <rect x="20" y="22" width="30" height="26" rx="4" fill="none" stroke="#ffffff" stroke-width="1.2"
+                opacity="0.4" stroke-dasharray="3 1.5" />
+              <circle cx="35" cy="35" r="8.5" fill="url(#gold-money)" />
+              <text x="35" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="900"
+                fill="#ffffff" text-anchor="middle">$</text>
+            </g>
+          </g>
 
-              <g id="logo-badge" filter="url(#soft-shadow)">
-                <rect x="5" y="5" width="60" height="60" rx="18" fill="url(#badge-bg)" stroke="#e8dfd1"
-                  stroke-width="1.5" />
-                <g id="money-note" filter="url(#note-shadow)">
-                  <rect x="17" y="19" width="36" height="32" rx="6" fill="url(#note-green)" />
-                  <rect x="20" y="22" width="30" height="26" rx="4" fill="none" stroke="#ffffff" stroke-width="1.2"
-                    opacity="0.4" stroke-dasharray="3 1.5" />
-                  <circle cx="35" cy="35" r="8.5" fill="url(#gold-money)" />
-                  <text x="35" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="13"
-                    font-weight="900" fill="#ffffff" text-anchor="middle">$</text>
-                </g>
-              </g>
+          <g id="logo-text" aria-hidden="true" focusable="false">
+            <text x="80" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="35" font-weight="800"
+              letter-spacing="-0.5px">
+              <tspan fill="#2f3e46">Homy</tspan>
+              <tspan fill="#558467">Finance</tspan>
+            </text>
+          </g>
+        </svg>
+      </a>
 
-              <g id="logo-text">
-                <text x="80" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="35" font-weight="800"
-                  letter-spacing="-0.5px">
-                  <tspan fill="#2f3e46">Homy</tspan>
-                  <tspan fill="#558467">Finance</tspan>
-                </text>
-              </g>
-            </svg>
-          </a>
+      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-          <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto navbar-custom">
-              <li class="nav-item"><a class="nav-link active px-3" aria-current="page" href="index.html">Home</a></li>
-              <li class="nav-item"><a class="nav-link px-3" href="expense.html">Add Expense</a></li>
-              <li class="nav-item"><a class="nav-link px-3" href="#">Add Income</a></li>
-              <li class="nav-item"><a class="nav-link px-3" href="balance.html">View Balance</a></li>
-              <li class="nav-item"><a class="nav-link px-3" href="#">Settings</a></li>
-              <li class="nav-item"><a class="nav-link px-3" href="login.html">Logout</a></li>
-            </ul>
-          </div>
-
-        </div>
-
+      <nav class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto navbar-custom">
+          <li class="nav-item"><a class="nav-link active px-3" aria-current="page" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="expense.html">Add Expense</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#">Add Income</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="balance.html">View Balance</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#">Settings</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="login.html">Logout</a></li>
+        </ul>
       </nav>
 
-    </header>
+    </div>
+  </header>
+
+  <main class="d-flex flex-column min-vh-100">
 
     <!-- Hero -->
-    <div class="container-xxl px-3 py-3 my-2 text-center d-flex flex-column flex-grow-1 justify-content-center">
-      
-      <div class="my-2 my-md-3 my-lg-4 py-lg-3">
-        <h1 class="display-6 fw-bold text-body-emphasis mb-1 mb-md-2 fs-3 fs-md-2">Welcome to HomyFinance!</h1>
-        <h2 class="h6 text-muted mb-3 fs-7 fs-md-6">Your personal home budget management center.</h2>
-     </div>
+    <section class="container-xxl px-3 py-3 my-2 text-center d-flex flex-column flex-grow-1 justify-content-center">
 
-      <section class="row g-3 g-lg-4 mb-4 mb-lg-5 justify-content-center">
+      <header class="my-2 my-md-3 my-lg-4 py-lg-3">
+        <h1 class="display-6 fw-bold text-body-emphasis mb-1 mb-md-2 fs-3">Welcome to HomyFinance!</h1>
+        <p class="h6 text-muted mb-3">Your personal home budget management center.</p>
+      </header>
+
+      <div class="row g-3 g-lg-4 mb-4 mb-lg-5 justify-content-center">
 
         <div class="col-12 col-md-6 col-lg-4">
-          <div class="card card-expense h-100 shadow-sm rounded-4 text-center p-3 p-xl-4">
+          <article class="card card-expense h-100 shadow-sm rounded-4 text-center p-3 p-xl-4">
             <div class="card-body d-flex flex-column align-items-center p-1 p-md-2 p-lg-3">
-              <div class="rounded-circle expense-circle p-2 mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                  class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
-                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z" />
-                </svg>
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <div
+                  class="rounded-circle expense-circle p-2 d-inline-flex align-items-center justify-content-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                    class="bi bi-dash-circle-fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z" />
+                  </svg>
+                </div>
+                <h2 class="h5 fw-bold mb-0 text-dark">Expense</h2>
               </div>
-              <h2 class="h6 h5-md fw-bold mb-1">Expense</h2>
-              <p class="card-text text-muted small mb-3 d-md-block">Did you go shopping, pay bills, or buy something new? Record
+              <p class="card-text text-muted small mb-3 d-md-block">Did you go shopping, pay bills, or buy something
+                new? Record
                 the expense.</p>
-              <a href="expense.html" class="btn btn-danger-custom w-100 mt-auto fw-bold rounded-3 py-2 fs-md-6">Add Expense</a>
+              <a href="expense.html" class="btn btn-danger-custom w-100 mt-auto fw-bold rounded-3 py-2">Add Expense</a>
             </div>
-          </div>
+          </article>
         </div>
 
         <div class="col-12 col-md-6 col-lg-4">
-          <div class="card card-income h-100 shadow-sm rounded-4 text-center p-3 p-xl-4">
+          <article class="card card-income h-100 shadow-sm rounded-4 text-center p-3 p-xl-4">
             <div class="card-body d-flex flex-column align-items-center p-1 p-md-2 p-lg-3">
-              <div class="rounded-circle income-circle p-2 mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                  class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                  <path
-                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
-                </svg>
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <div
+                  class="rounded-circle income-circle p-2 d-inline-flex align-items-center justify-content-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                    class="bi bi-plus-circle-fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                  </svg>
+                </div>
+                <h2 class="h5 fw-bold mb-0 text-dark">Income</h2>
               </div>
-              <h2 class="h6 h5-md fw-bold mb-1">Income</h2>
-              <p class="card-text text-muted small mb-3 d-md-block">Just received your paycheck or earned some extra money?
+              <p class="card-text text-muted small mb-3 d-md-block">Just received your paycheck or earned some extra
+                money?
                 Record the income.</p>
-              <a href="#" class="btn btn-success-custom w-100 mt-auto fw-bold rounded-3 py-2 fs-md-6">Add Income</a>
+              <a href="#" class="btn btn-success-custom w-100 mt-auto fw-bold rounded-3 py-2">Add Income</a>
             </div>
-          </div>
+          </article>
         </div>
 
         <div class="col-12 col-md-6 col-lg-4">
-          <div class="card card-balance h-100 shadow-sm rounded-4 text-center p-3 p-xl-4">
+          <article class="card card-balance h-100 shadow-sm rounded-4 text-center p-3 p-xl-4">
             <div class="card-body d-flex flex-column align-items-center p-1 p-md-2 p-lg-3">
-              <div class="rounded-circle balance-circle p-2 mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                  class="bi bi-pie-chart" viewBox="0 0 16 16">
-                  <path
-                    d="M7.5 1.018a7 7 0 1 0 7.481 7.481A.5.5 0 0 0 14.5 8h-6a.5.5 0 0 1-.5-.5V1.5a.5.5 0 0 0-.5-.482zM8 0a8 8 0 1 1-8 8A8 8 0 0 1 8 0z" />
-                  <path d="M8.5 1.5v6.5H15A6.5 6.5 0 0 0 8.5 1.5z" />
-                </svg>
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <div
+                  class="rounded-circle balance-circle p-2 d-inline-flex align-items-center justify-content-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                    class="bi bi-pie-chart" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path
+                      d="M7.5 1.018a7 7 0 1 0 7.481 7.481A.5.5 0 0 0 14.5 8h-6a.5.5 0 0 1-.5-.5V1.5a.5.5 0 0 0-.5-.482zM8 0a8 8 0 1 1-8 8A8 8 0 0 1 8 0z" />
+                    <path d="M8.5 1.5v6.5H15A6.5 6.5 0 0 0 8.5 1.5z" />
+                  </svg>
+                </div>
+                <h2 class="h5 fw-bold mb-0 text-dark">Balance</h2>
               </div>
-              <h2 class="h6 h5-md fw-bold mb-1">Balance</h2>
-              <p class="card-text text-muted small mb-3 d-md-block">View a summary of your finances, spending charts, and your
+              <p class="card-text text-muted small mb-3 d-md-block">View a summary of your finances, spending charts,
+                and your
                 final balance.</p>
-              <a href="balance.html" class="btn btn-outline-custom w-100 mt-auto fw-bold rounded-3 py-2 fs-md-6">View Balance</a>
+              <a href="balance.html" class="btn btn-outline-custom w-100 mt-auto fw-bold rounded-3 py-2">View
+                Balance</a>
             </div>
-          </div>
+          </article>
         </div>
 
-      </section>
+      </div>
 
-      <div class="row justify-content-center">
+      <aside class="row justify-content-center">
         <div class="col-10 col-sm-8 col-md-6">
           <div class="card border-0 shadow-sm rounded-4 text-center p-1">
             <div class="card-body d-flex flex-row align-items-center text-start p-2 p-lg-3">
 
               <div
-                class="rounded-circle balance-circle p-2 d-inline-flex align-items-center justify-content-center flex-shrink-0">
+                class="rounded-circle tip-circle p-2 d-inline-flex align-items-center justify-content-center flex-shrink-0">
 
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="tip-custom"
-                  viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"
+                  aria-hidden="true" focusable="false">
                   <path
                     d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                 </svg>
@@ -180,9 +198,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </aside>
 
-    </div>
+    </section>
 
     <!-- FOOTER -->
     <footer class="border-top py-3 text-center text-muted small mt-auto bg-white">
@@ -192,6 +210,7 @@
     </footer>
 
   </main>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
