@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <help_text/>
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>430</x>
+      <y>380</y>
+      <w>220</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>users
+--
+user_id: int (11) - primary key
+username: varchar(50)
+email: varchar(100)
+password: varchar(255)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>750</x>
+      <y>380</y>
+      <w>280</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>incomes
+--
+income_id: int(11) - primary key
+user_id: int(11) - foreign key
+amount: decimal(10,2)
+income_date: date 
+income_category_id: int(11) - foreign key
+income_comment:  varchar(50)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>50</x>
+      <y>380</y>
+      <w>280</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>Expenses
+--
+expense_id: int(11)- primary key
+user_id: int(11) - foreign key
+amount: decimal(10,2)
+expense_date: date 
+expense_category_id: int(11) - foreign key
+payment_method_id: int(11) - foreign key
+expense_comment: varchar(50)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>50</x>
+      <y>590</y>
+      <w>280</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>expense_category
+--
+expense_category_id: int(11) - primary key
+user_id: int(11) - foreign key
+expense_category_name: varchar(50)
+is_active:  tinyint (1)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>50</x>
+      <y>740</y>
+      <w>280</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>payment_method
+--
+payment_method_id: int(11) - primary key
+user_id: int(11) - foreign key
+payment_method_name: varchar(50)
+is_active:  tinyint(1)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>750</x>
+      <y>600</y>
+      <w>280</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>income_category
+--
+income_category_id: int(11) - primary key
+user_id: int(11) - foreign key
+income_category_name: varchar(50)
+is_active:  tinyint(1)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>640</x>
+      <y>400</y>
+      <w>130</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>110.0;30.0;50.0;30.0;50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>640</x>
+      <y>410</y>
+      <w>130</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>110.0;240.0;30.0;240.0;30.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>410</y>
+      <w>130</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;230.0;80.0;230.0;80.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>400</y>
+      <w>130</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;30.0;70.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>420</y>
+      <w>130</w>
+      <h>400</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;370.0;100.0;370.0;100.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>690</x>
+      <y>470</y>
+      <w>80</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0;10.0;160.0;60.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>470</y>
+      <w>80</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;160.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>0</x>
+      <y>480</y>
+      <w>70</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>50.0;10.0;30.0;10.0;30.0;300.0;50.0;300.0</additional_attributes>
+  </element>
+</diagram>
