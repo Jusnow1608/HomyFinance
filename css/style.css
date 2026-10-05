@@ -35,6 +35,7 @@
    /* 7. Rozmiary kontenerów */
   --max-logo-width: clamp(11.5rem, 8rem + 10vw, 18.75rem);
   --max-logo-height: clamp(2.375rem, 1.8rem + 1.5vw, 3rem);
+  --chart-size: clamp(15rem, 45vw, 25rem);
 
   --icon-min-width: 2.75rem;
   --icon-height: 1.1rem;
@@ -339,6 +340,12 @@ color: var(--color-primary);
 h2.text-expense-custom,
 .text-end.text-expense-custom {
   color: var(--color-expense);
+}
+
+.chart-container {
+  position: relative;
+  inline-size: 100%;
+  block-size: var(--chart-size);
 }
 
 @media (min-width: 48rem) {
