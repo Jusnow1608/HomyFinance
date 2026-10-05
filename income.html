@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="HomyFinance is your personal home budget management center. Track expenses, incomes, and control your financial balance easily.">
+  <meta name="author" content="Justyna Nowak-Szrajnert">
+  <meta property="og:description"
+    content="Take full control of your household budget with HomyFinance. Track your incomes and expenses effortlessly while analyzing clear financial summaries.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://jusnow1608.github.io/HomyFinance/solution/home.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+
+  <meta name="title" property="og:title" content="HomyFinance | Income">
+  <meta property="og:url" content="https://jusnow1608.github.io/HomyFinance/income.html">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>HomyFinance - Income</title>
+</head>
+
+<body class="body-custom d-flex flex-column min-vh-100">
+
+  <!-- Navbar -->
+  <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="navbar-brand d-flex align-items-center my-1" href="login.html">
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" role="img" aria-label="HomyFinance Logo"
+          class="d-inline-block navbar-logo">
+          <defs>
+            <linearGradient id="badge-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="100%" stop-color="#f4efe6" />
+            </linearGradient>
+            <linearGradient id="note-green" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#52796f" />
+              <stop offset="100%" stop-color="#2f3e46" />
+            </linearGradient>
+            <linearGradient id="gold-money" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f3b61f" />
+              <stop offset="100%" stop-color="#e07a5f" />
+            </linearGradient>
+            <filter id="soft-shadow" x="-10%" y="-10%" width="130%" height="130%">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2f3e46" flood-opacity="0.12" />
+            </filter>
+            <filter id="note-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#2f3e46" flood-opacity="0.2" />
+            </filter>
+          </defs>
+
+          <g id="logo-badge" aria-hidden="true" focusable="false" filter="url(#soft-shadow)">
+            <rect x="5" y="5" width="60" height="60" rx="18" fill="url(#badge-bg)" stroke="#e8dfd1"
+              stroke-width="1.5" />
+            <g id="money-note" filter="url(#note-shadow)">
+              <rect x="17" y="19" width="36" height="32" rx="6" fill="url(#note-green)" />
+              <rect x="20" y="22" width="30" height="26" rx="4" fill="none" stroke="#ffffff" stroke-width="1.2"
+                opacity="0.4" stroke-dasharray="3 1.5" />
+              <circle cx="35" cy="35" r="8.5" fill="url(#gold-money)" />
+              <text x="35" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="900"
+                fill="#ffffff" text-anchor="middle">$</text>
+            </g>
+          </g>
+
+          <g id="logo-text" aria-hidden="true" focusable="false">
+            <text x="80" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="35" font-weight="800"
+              letter-spacing="-0.5px">
+              <tspan fill="#2f3e46">Homy</tspan>
+              <tspan fill="#558467">Finance</tspan>
+            </text>
+          </g>
+        </svg>
+      </a>
+
+      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <nav class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto navbar-custom">
+          <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="expense.html">Add
+              Expense</a></li>
+          <li class="nav-item"><a class="nav-link active px-3" aria-current="page" href="income.html">Add Income</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="balance.html">View Balance</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#">Settings</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="login.html">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow-1 d-flex flex-column">
+
+    <!-- Main Form Section -->
+    <section class="flex-grow-1 d-flex align-items-center py-3">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-11 col-lg-10 col-xl-9">
+
+            <div class="card border-0 shadow-sm rounded-4 p-2 p-md-3">
+              <div class="card-body-custom">
+
+                <!-- Title Icon -->
+                <div class="d-flex align-items-center justify-content-center gap-2 mb-2 mb-md-3">
+                  <div
+                    class="rounded-circle income-circle p-2 d-inline-flex align-items-center justify-content-center mb-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                      class="bi bi-plus-circle-fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                    </svg>
+                  </div>
+                  <h1 class="h4 fw-bold mb-0">Income</h1>
+                </div>
+
+                <form id="incomeForm">
+                  <!-- 1. Amount Input -->
+                  <div class="row g-2 mb-3">
+                    <div class="col-12 col-md-6">
+                      <label for="amount" class="form-label fw-bold small">Amount</label>
+                      <div class="input-group input-group-custom">
+                        <span class="form-control-custom icon-custom body-custom">
+                          <i class="bi bi-wallet2"></i>
+                        </span>
+                        <input type="number" step="0.01" min="0.01" class="form-control form-control-custom" id="amount"
+                          name="amount" aria-describedby="currency-addon" placeholder="0.00" required>
+                        <span class="form-control-custom icon-custom body-custom" id="currency-addon">PLN</span>
+                      </div>
+                    </div>
+
+                    <!-- 2. Date Input -->
+                    <div class="col-12 col-md-6">
+                      <label for="date" class="form-label fw-bold small">Date</label>
+                      <div class="input-group input-group-custom">
+                        <span class="form-control-custom icon-custom body-custom">
+                          <i class="bi bi-calendar-event"></i>
+                        </span>
+                        <input type="date" class="form-control form-control-custom" id="date" name="incomeDate"
+                          required>
+                      </div>
+                    </div>
+                  </div>
+
+                    <!-- 3. Category (Radio Buttons) -->
+                  <fieldset class="mb-3 border-0 p-0 m-0">
+                    <legend class="form-label fw-bold small d-block">Category</legend>
+                    <div class="row g-2">
+
+                      <div class="col-6 col-md-3">
+                        <input type="radio" class="btn-check" name="category" id="cat-paycheck" value="paycheck" checked>
+                        <label class="btn form-select-tile w-100 text-truncate" for="cat-paycheck">
+                          <i class="bi bi-briefcase me-1"></i><span class="tile-text-custom"> Paycheck</span>
+                        </label>
+                      </div>
+
+                      <div class="col-6 col-md-3">
+                        <input type="radio" class="btn-check" name="category" id="cat-investments" value="investments">
+                        <label class="btn form-select-tile w-100 text-truncate" for="cat-investments">
+                          <i class="bi bi-graph-up-arrow me-1"></i><span class="tile-text-custom"> Investments</span>
+                        </label>
+                      </div>
+
+                      <div class="col-6 col-md-3">
+                        <input type="radio" class="btn-check" name="category" id="cat-passive" value="passive">
+                        <label class="btn form-select-tile w-100 text-truncate" for="cat-passive">
+                          <i class="bi bi-piggy-bank me-1"></i><span class="tile-text-custom"> Passive income</span>
+                        </label>
+                      </div>
+
+                      <div class="col-6 col-md-3">
+                        <input type="radio" class="btn-check" name="category" id="cat-other" value="other">
+                        <label class="btn form-select-tile w-100 text-truncate" for="cat-other">
+                          <i class="bi bi-three-dots me-1"></i><span class="tile-text-custom"> Another</span>
+                        </label>
+                      </div>
+
+                    </div>
+                  </fieldset>
+
+                  <!-- 5. Comment / Note -->
+                  <div class="mb-3">
+                    <label for="comment" class="form-label fw-bold small">Comment (optional)</label>
+                    <textarea class="form-control form-control-custom" id="comment" name="comment" rows="1"
+                      placeholder="Where did this income come from?"></textarea>
+                  </div>
+
+                  <!-- Submit Buttons -->
+                  <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success-custom btn-md py-2 w-100 fw-bold">Add Income</button>
+                    <button type="reset" class="btn btn-outline-secondary btn-md py-2 fw-bold rounded-3">Cancel</button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-top py-3 text-center text-muted small">
+    <div class="container">
+      &copy; 2026 HomyFinance. All Rights Reserved.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="js/date.js" defer></script>
+</body>
+
+</html>

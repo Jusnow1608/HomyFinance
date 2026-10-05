@@ -1,6 +1,6 @@
   document.addEventListener("DOMContentLoaded", () => {
       const dateInput = document.getElementById("date");
-      const expenseForm = document.getElementById("expenseForm");
+      const form = dateInput ? dateInput.closest("form") : null;
 
       const getTodayLocalDate = () => {
         const now = new Date();
@@ -17,8 +17,8 @@
         dateInput.value = todayLocal;
         dateInput.max = todayLocal;
       }
-      if (expenseForm && dateInput) {
-        expenseForm.addEventListener("reset", () => {
+      if (form && dateInput) {
+        form.addEventListener("reset", () => {
           setTimeout(() => {
             if (dateInput) {
               dateInput.value = getTodayLocalDate();
