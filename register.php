@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -87,8 +89,8 @@
 
       <nav class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto navbar-custom">
-          <li class="nav-item"><a class="nav-link px-3 active" aria-current="page" href="register.html">Register</a></li>
-          <li class="nav-item"><a class="nav-link px-3" href="login.html">Login</a></li>
+          <li class="nav-item"><a class="nav-link px-3 active" aria-current="page" href="register.php">Register</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="login.php">Login</a></li>
         </ul>
       </nav>
     </div>
@@ -106,7 +108,14 @@
                 <h1 class="h2 fw-bold text-center mb-2">Create an account</h1>
                 <p class="text-muted text-center mb-4">Start managing your household budget today!</p>
 
-                <form>
+                <?php if (isset($_SESSION['e_register'])): ?>
+                  <div class="alert alert-danger text-center small py-2 mb-3" role="alert">
+                    <?= $_SESSION['e_register']; ?>
+                  </div>
+                  <?php unset($_SESSION['e_register']); ?>
+                <?php endif; ?>
+
+                <form method="post" action="register_script.php" novalidate>
 
                   <label for="name" class="form-label-custom">Name</label>
                   <div class="input-group mb-3 input-group-custom">
@@ -119,7 +128,7 @@
                     </span>
 
                     <input type="text" class="form-control form-control-custom form-control-md" placeholder="Your name"
-                      name="name" id="name" aria-label="Name" autocomplete="given-name" required>
+                      name="name" id="name" value="<?= $_SESSION['given_name'] ?? '' ?>" aria-label="Name" autocomplete="given-name" required>
                   </div>
 
                   <label for="email" class="form-label-custom">Email address</label>
@@ -135,7 +144,7 @@
                     </span>
 
                     <input type="email" class="form-control form-control-custom form-control-md" id="email" name="email"
-                      placeholder="email@example.com" aria-label="Email address" autocomplete="email" required>
+                      placeholder="email@example.com" value="<?= $_SESSION['given_email'] ?? '' ?>" aria-label="Email address" autocomplete="email" required>
                   </div>
 
                   <label for="password" class="form-label-custom">Password</label>
@@ -158,9 +167,14 @@
                     class="btn btn-success-custom btn-lg w-100 fw-bold mb-3">Continue</button>
                 </form>
 
+                <?php 
+                  unset($_SESSION['given_name']);
+                  unset($_SESSION['given_email']);
+                ?>
+
                 <div class="text-center">
                   <span class="text-muted">Already have an account?</span>
-                  <a href="login.html" class="text-success-custom fw-bold">Log In</a>
+                  <a href="login.php" class="text-success-custom fw-bold">Log In</a>
                 </div>
               </div>
             </div>
