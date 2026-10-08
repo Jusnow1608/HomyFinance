@@ -1,4 +1,7 @@
 <?php
+
+$config = require 'config.php';
+
 session_start();
 
 if (!isset($_POST['email'])) {
@@ -9,6 +12,7 @@ if (!isset($_POST['email'])) {
 $name = trim($_POST['name']);
 $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 $password = $_POST['password'];
+$recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 
 $_SESSION['given_name'] = $name;
 $_SESSION['given_email'] = $_POST['email'];
@@ -26,7 +30,25 @@ if (!$email) {
 }
 
 if ((strlen($password) < 8) || (strlen($password)>20)){
-    $_SESSION['e_register'] = "Password must be at least 8 characters long and have no more than 20 characters.";
+    $_SESSION['e_register'] = "Password must be between 8 and 20 characters long.";
+    header('Location: register.php');
+    exit();
+}
+
+if (empty($recaptchaResponse)) {
+    $_SESSION['e_register'] = "Please confirm that you are not a robot.";
+    header('Location: register.php');
+    exit();
+}
+
+$secretKey = $config['recaptcha_secret'];
+$verifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
+
+$verifyResponse = file_get_contents($verifyUrl . '?secret=' . $secretKey . '&response=' . $recaptchaResponse);
+$responseData = json_decode($verifyResponse);
+
+if (!$responseData || !$responseData->success) {
+    $_SESSION['e_register'] = "reCAPTCHA verification failed. Please try again.";
     header('Location: register.php');
     exit();
 }
@@ -47,7 +69,7 @@ try {
 
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-    $insertQuery = $db->prepare('INSERT INTO users (name, email, password) VALUES (:name, :email, :password)');
+    $insertQuery = $db->prepare('INSERT INTO users (username, password, email) VALUES (:name, :password, :email)');
     $insertQuery->bindValue(':name', $name, PDO::PARAM_STR);
     $insertQuery->bindValue(':email', $email, PDO::PARAM_STR);
     $insertQuery->bindValue(':password', $passwordHash, PDO::PARAM_STR);
@@ -61,7 +83,7 @@ try {
     exit();
 
     } catch (PDOException $e) {
-    $_SESSION['e_register'] = "Server error. Please try again later.";
+    $_SESSION['e_register'] = "Błąd MySQL: " . $e->getMessage(); //"Server error. Please try again later."
     header('Location: register.php');
     exit();
 }

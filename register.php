@@ -27,6 +27,8 @@
 
   <title>HomyFinance - Register</title>
 
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 
 <body class="body-custom d-flex flex-column min-vh-100">
@@ -159,8 +161,12 @@
                     </span>
 
                     <input type="password" class="form-control form-control-custom form-control-md" id="password"
-                      name="password" placeholder="•••••••••••" aria-label="Password" autocomplete="new-password"
+                      name="password" placeholder="••••••••" aria-label="Password" autocomplete="new-password"
                       required>
+                  </div>
+
+                  <div class="mb-3 d-flex justify-content-center">
+                    <div class="g-recaptcha" data-sitekey="6Len2sotAAAAAErOGe40Qrze4Uoj1Lv1vkpy9Pm1"></div>
                   </div>
 
                   <button type="submit"
