@@ -55,6 +55,8 @@ if (!$responseData || !$responseData->success) {
 
 require_once 'database.php';
 
+$db = getDatabaseConnection($config);
+
 try {
 
     $checkQuery = $db->prepare('SELECT id FROM users WHERE email = :email');
@@ -83,7 +85,7 @@ try {
     exit();
 
     } catch (PDOException $e) {
-    $_SESSION['e_register'] = "Błąd MySQL: " . $e->getMessage(); //"Server error. Please try again later."
+    $_SESSION['e_register'] = "Server error. Please try again later.";
     header('Location: register.php');
     exit();
 }
