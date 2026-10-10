@@ -17,26 +17,9 @@ $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 $_SESSION['given_name'] = $name;
 $_SESSION['given_email'] = $_POST['email'];
 
-if (empty($name) || strlen($name) < 3) {
-    $_SESSION['e_register'] = "Please enter a valid name (at least 3 characters).";
-    header('Location: register.php');
-    exit();
-}
-
-if (!$email) {
-    $_SESSION['e_register'] = "Please enter a valid email address.";
-    header('Location: register.php');
-    exit();
-}
-
-if ((strlen($password) < 8) || (strlen($password)>20)){
-    $_SESSION['e_register'] = "Password must be between 8 and 20 characters long.";
-    header('Location: register.php');
-    exit();
-}
-
-if (empty($recaptchaResponse)) {
-    $_SESSION['e_register'] = "Please confirm that you are not a robot.";
+$validationError = validateRegistrationInput($name, $email, $password, $recaptchaResponse);
+if ($validationError !== null) {
+    $_SESSION['e_register'] = $validationError;
     header('Location: register.php');
     exit();
 }
@@ -47,30 +30,19 @@ if (!verifyRecaptcha($config['recaptcha_secret'], $recaptchaResponse)) {
     exit();
 }
 
-require_once 'database.php';
 
-$db = getDatabaseConnection($config);
+require_once 'database.php';
 
 try {
 
-    $checkQuery = $db->prepare('SELECT id FROM users WHERE email = :email');
-    $checkQuery->bindValue(':email', $email, PDO::PARAM_STR);
-    $checkQuery->execute();
-
-    if ($checkQuery->rowCount() > 0) {
+    $db = getDatabaseConnection($config);
+    
+    if (!registerUser($db, $name, $email, $password)) {
         $_SESSION['e_register'] = "An account with this email already exists!";
         header('Location: register.php');
         exit();
     }
-
-    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
-    $insertQuery = $db->prepare('INSERT INTO users (username, password, email) VALUES (:name, :password, :email)');
-    $insertQuery->bindValue(':name', $name, PDO::PARAM_STR);
-    $insertQuery->bindValue(':email', $email, PDO::PARAM_STR);
-    $insertQuery->bindValue(':password', $passwordHash, PDO::PARAM_STR);
-    $insertQuery->execute();
-
+   
     unset($_SESSION['given_name']);
     unset($_SESSION['given_email']);
 
@@ -79,10 +51,33 @@ try {
     exit();
 
     } catch (PDOException $e) {
-    error_log('Database Connection Failure: ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
+    error_log('Registration Error (SQL/PDO): ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
     $_SESSION['e_register'] = "Server error. Please try again later.";
     header('Location: register.php');
     exit();
+}
+
+
+function validateRegistrationInput(string $name, $email, string $password, string $recaptchaResponse): ?string
+{
+
+    if (empty($name) || strlen($name) < 3) {
+       return "Please enter a valid name (at least 3 characters).";
+    }
+
+    if (!$email) {
+       return "Please enter a valid email address.";
+    }
+
+    if ((strlen($password) < 8) || (strlen($password)>20)){
+       return "Password must be between 8 and 20 characters long.";
+    }
+
+    if (empty($recaptchaResponse)) {
+       return "Please confirm that you are not a robot.";
+    }
+
+    return null;
 }
 
 
@@ -118,4 +113,24 @@ function verifyRecaptcha(string $secretKey, string $recaptchaResponse): bool
     $responseData = json_decode($response);
 
     return isset($responseData->success) && $responseData->success === true;
+}
+
+function registerUser(PDO $db, string $name, string $email, string $password): bool
+{
+    $checkQuery = $db->prepare('SELECT id FROM users WHERE email = :email');
+    $checkQuery->bindValue(':email', $email, PDO::PARAM_STR);
+    $checkQuery->execute();
+
+    if ($checkQuery->rowCount() > 0) {
+       return false;
+    }
+
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+    $insertQuery = $db->prepare('INSERT INTO users (username, password, email) VALUES (:name, :password, :email)');
+    $insertQuery->bindValue(':name', $name, PDO::PARAM_STR);
+    $insertQuery->bindValue(':email', $email, PDO::PARAM_STR);
+    $insertQuery->bindValue(':password', $passwordHash, PDO::PARAM_STR);
+    
+    return $insertQuery->execute();
 }
