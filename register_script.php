@@ -41,13 +41,7 @@ if (empty($recaptchaResponse)) {
     exit();
 }
 
-$secretKey = $config['recaptcha_secret'];
-$verifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
-
-$verifyResponse = file_get_contents($verifyUrl . '?secret=' . $secretKey . '&response=' . $recaptchaResponse);
-$responseData = json_decode($verifyResponse);
-
-if (!$responseData || !$responseData->success) {
+if (!verifyRecaptcha($config['recaptcha_secret'], $recaptchaResponse)) {
     $_SESSION['e_register'] = "reCAPTCHA verification failed. Please try again.";
     header('Location: register.php');
     exit();
@@ -88,4 +82,38 @@ try {
     $_SESSION['e_register'] = "Server error. Please try again later.";
     header('Location: register.php');
     exit();
+}
+
+function verifyRecaptcha(string $secretKey, string $recaptchaResponse): bool
+{
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
+    
+    $postData = [
+        'secret' => $secretKey,
+        'response' => $recaptchaResponse
+    ];
+
+    $ch = curl_init();
+    
+    // Ustawienie adresu URL
+    curl_setopt($ch, CURLOPT_URL, $url);
+    // Włączenie metody POST
+    curl_setopt($ch, CURLOPT_POST, true);
+    // Przekazanie parametrów wyformatowanych jako multipart/form-data lub application/x-www-form-urlencoded
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+    // Zwrócenie odpowiedzi jako ciąg znaków zamiast bezpośredniego wypisania na ekranie
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    // Limit czasu oczekiwania na odpowiedź od Google (np. 5 sekund)
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    if (!$response) {
+        return false;
+    }
+
+    $responseData = json_decode($response);
+
+    return isset($responseData->success) && $responseData->success === true;
 }
