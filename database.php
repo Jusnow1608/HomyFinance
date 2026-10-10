@@ -13,8 +13,8 @@ function getDatabaseConnection(array $config): PDO
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC 
             ]
         );
-    } catch (PDOException $error) {
-        echo $error->getMessage();
-        exit('Database connection error');
+    } catch (PDOException $e) {
+        error_log('Database Connection Failure: ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
+        exit('Database connection error. Please try again later.');
     }
 }

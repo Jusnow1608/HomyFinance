@@ -79,10 +79,12 @@ try {
     exit();
 
     } catch (PDOException $e) {
+    error_log('Database Connection Failure: ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
     $_SESSION['e_register'] = "Server error. Please try again later.";
     header('Location: register.php');
     exit();
 }
+
 
 function verifyRecaptcha(string $secretKey, string $recaptchaResponse): bool
 {
