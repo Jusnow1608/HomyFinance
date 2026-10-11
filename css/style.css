@@ -273,16 +273,6 @@ color: var(--color-primary);
   color: var(--color-primary);
 }
 
-.card.card-expense { 
-  --card-theme: var(--color-expense); 
-}
-.card.card-income  { 
-  --card-theme: var(--color-primary); 
-}
-.card.card-balance { 
-  --card-theme: var(--color-balance); 
-}
-
 .card.card-expense,
 .card.card-income,
 .card.card-balance {
@@ -294,8 +284,8 @@ color: var(--color-primary);
 .card.card-income:hover,
 .card.card-balance:hover {
   transform: translateY(-0.375rem) scale(1.02);
-  border-color: var(--card-theme);
-  box-shadow: 0 0.75rem 1.5rem color-mix(in srgb, var(--card-theme) 20%, transparent);
+  border-color: var(--color-primary);
+  box-shadow: 0 0.75rem 1.5rem color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
 
 .btn.form-select-tile {

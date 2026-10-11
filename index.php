@@ -117,7 +117,8 @@ if (!isset($_SESSION['logged_id'])) {
     <section class="container-xxl px-3 py-3 my-2 text-center d-flex flex-column flex-grow-1 justify-content-center">
 
       <header class="my-2 my-md-3 my-lg-4 py-lg-3">
-        <h1 class="display-6 fw-bold text-body-emphasis mb-1 mb-md-2 fs-3">Welcome to HomyFinance!</h1>
+        <h1 class="display-6 fw-bold text-body-emphasis mb-1 mb-md-2 fs-3">Welcome, <?= htmlspecialchars($_SESSION['user_name'] ?? 'User', ENT_QUOTES, 'UTF-8'); ?>!
+        </h1>
         <p class="h6 text-muted mb-3">Your personal home budget management center.</p>
       </header>
 
@@ -209,7 +210,7 @@ if (!isset($_SESSION['logged_id'])) {
 
               <div class="text-start px-3">
                 <span class="fw-bold d-block small">Tip of the day</span>
-                <small class="text-muted">"Small daily savings lead to a big annual balance!"</small>
+                <small class="text-muted" id="daily-tip">"Small daily savings lead to a big annual balance!"</small>
               </div>
             </div>
           </div>
@@ -230,6 +231,8 @@ if (!isset($_SESSION['logged_id'])) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
+
+  <script src="js/tips.js" defer></script>
 </body>
 
 </html>
