@@ -15,7 +15,7 @@
   <meta property="og:image:height" content="627">
 
   <meta name="title" property="og:title" content="HomyFinance | Expense">
-  <meta property="og:url" content="https://jusnow1608.github.io/HomyFinance/expense.html">
+  <meta property="og:url" content="https://jusnow1608.github.io/HomyFinance/expense.php">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -34,7 +34,7 @@
   <!-- Navbar -->
   <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
     <div class="container d-flex align-items-center justify-content-between">
-      <a class="navbar-brand d-flex align-items-center my-1" href="login.html">
+      <a class="navbar-brand d-flex align-items-center my-1" href="login.php">
 
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" role="img" aria-label="HomyFinance Logo"
           class="d-inline-block navbar-logo">
@@ -89,13 +89,13 @@
 
       <nav class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto navbar-custom">
-          <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link active px-3" aria-current="page" href="expense.html">Add
+          <li class="nav-item"><a class="nav-link px-3" href="index.php">Home</a></li>
+          <li class="nav-item"><a class="nav-link active px-3" aria-current="page" href="expense.php">Add
               Expense</a></li>
-          <li class="nav-item"><a class="nav-link px-3" href="income.html">Add Income</a></li>
-          <li class="nav-item"><a class="nav-link px-3" href="balance.html">View Balance</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="income.php">Add Income</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="balance.php">View Balance</a></li>
           <li class="nav-item"><a class="nav-link px-3" href="#">Settings</a></li>
-          <li class="nav-item"><a class="nav-link px-3" href="login.html">Logout</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="login.php">Logout</a></li>
         </ul>
       </nav>
     </div>

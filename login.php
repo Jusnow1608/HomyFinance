@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Jeśli użytkownik jest już zalogowany, przekieruj do index.php
+if (isset($_SESSION['logged_id'])) {
+    header('Location: index.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +25,7 @@
   <meta property="og:image:height" content="627">
 
   <meta name="title" property="og:title" content="HomyFinance | Log In">
-  <meta property="og:url" content="https://jusnow1608.github.io/HomyFinance/login.html">
+  <meta property="og:url" content="https://jusnow1608.github.io/HomyFinance/login.php">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -34,7 +44,7 @@
   <header class="navbar navbar-expand-md navbar-light bg-white border-bottom shadow-sm">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <a class="navbar-brand d-flex align-items-center my-1" href="login.html">
+      <a class="navbar-brand d-flex align-items-center my-1" href="login.php">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" role="img" aria-label="HomyFinance Logo"
           class="d-inline-block navbar-logo">
           <defs>
@@ -88,8 +98,8 @@
 
       <nav class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto navbar-custom">
-          <li class="nav-item"><a class="nav-link px-3" href="register.html">Register</a></li>
-          <li class="nav-item"><a class="nav-link px-3 active" aria-current="page" href="login.html">Login</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="register.php">Register</a></li>
+          <li class="nav-item"><a class="nav-link px-3 active" aria-current="page" href="login.php">Login</a></li>
         </ul>
       </nav>
 
@@ -108,7 +118,23 @@
                 <h1 class="h2 fw-bold text-center mb-2">Log In</h1>
                 <p class="text-muted text-center mb-4">Log in to your HomyFinance account!</p>
 
-                <form>
+                <!-- Komunikat o sukcesie po rejestracji -->
+                <?php if (isset($_SESSION['register_success'])): ?>
+                  <div class="alert alert-success text-center small py-2 mb-3" role="alert">
+                    <?= $_SESSION['register_success']; ?>
+                  </div>
+                  <?php unset($_SESSION['register_success']); ?>
+                <?php endif; ?>
+
+                <!-- Komunikat o błędzie logowania -->
+                <?php if (isset($_SESSION['e_login'])): ?>
+                  <div class="alert alert-danger text-center small py-2 mb-3" role="alert">
+                    <?= $_SESSION['e_login']; ?>
+                  </div>
+                  <?php unset($_SESSION['e_login']); ?>
+                <?php endif; ?>
+
+                <form method="post" action="login_script.php" novalidate>
                   <label for="email" class="form-label-custom">Email address</label>
                   <div class="input-group mb-3 input-group-custom">
 
@@ -147,7 +173,7 @@
 
                 <div class="text-center">
                   <span class="text-muted">Don't have an account?</span>
-                  <a href="register.html" class="text-success-custom fw-bold">Sign
+                  <a href="register.php" class="text-success-custom fw-bold">Sign
                     Up</a>
                 </div>
               </div>
