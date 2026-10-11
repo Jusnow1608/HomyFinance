@@ -148,7 +148,7 @@ if (isset($_SESSION['logged_id'])) {
                     </span>
 
                     <input type="email" class="form-control form-control-custom form-control-md" name="email" id="email"
-                      autocomplete="username" placeholder="email@example.com" aria-label="Email address" required>
+                      autocomplete="username" placeholder="email@example.com" value="<?= $_SESSION['given_login_email'] ?? '' ?>" aria-label="Email address" required>
                   </div>
 
                   <label for="password" class="form-label-custom">Password</label>
@@ -163,13 +163,15 @@ if (isset($_SESSION['logged_id'])) {
                     </span>
 
                     <input type="password" class="form-control form-control-custom form-control-md" name="password"
-                      id="password" autocomplete="current-password" placeholder="•••••••••••" aria-label="Password"
+                      id="password" autocomplete="current-password" placeholder="••••••••" aria-label="Password"
                       required>
                   </div>
 
                   <button type="submit" class="btn btn-success-custom btn-lg w-100 fw-bold mb-3">Log
                     In</button>
                 </form>
+
+                <?php unset($_SESSION['given_login_email']); ?>
 
                 <div class="text-center">
                   <span class="text-muted">Don't have an account?</span>

@@ -44,7 +44,7 @@ if (!isset($_SESSION['logged_id'])) {
   <!-- Logo & Navbar-->
   <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
     <div class="container d-flex align-items-center justify-content-between">
-      <a class="navbar-brand d-flex align-items-center my-1" href="login.php">
+      <a class="navbar-brand d-flex align-items-center my-1" href="index.php">
 
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" role="img" aria-label="HomyFinance Logo"
           class="d-inline-block navbar-logo">

@@ -12,6 +12,9 @@ if (!isset($_POST['email']) || !isset($_POST['password'])) {
 $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 $password = $_POST['password'] ?? '';
 
+// Zapamiętanie wprowadzonego e-maila w sesji w razie błędu logowania
+$_SESSION['given_login_email'] = $_POST['email'];
+
 // 1. Walidacja danych wejściowych za pomocą funkcji
 $validationError = validateLoginInput($email, $password);
 if ($validationError !== null) {
@@ -38,6 +41,8 @@ try {
         $_SESSION['user_email'] = $user['email'];
 
         unset($_SESSION['e_login']);
+        unset($_SESSION['given_login_email']);
+        
         header('Location: index.php');
         exit();
     } else {

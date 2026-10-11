@@ -1,1 +1,2 @@
 Database Connection Failure: SQLSTATE[HY000] [1049] Unknown database 'homyfinance_zla_nazwa'
+Database Connection Failure: SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo for localhostt failed: Nieznany host. 
