@@ -4,6 +4,8 @@ $config = require 'config.php';
 
 session_start();
 
+require_once 'functions.php';
+
 if (!isset($_POST['email'])) {
     header('Location: register.php');
     exit();
@@ -19,15 +21,11 @@ $_SESSION['given_email'] = $_POST['email'];
 
 $validationError = validateRegistrationInput($name, $email, $password, $recaptchaResponse);
 if ($validationError !== null) {
-    $_SESSION['e_register'] = $validationError;
-    header('Location: register.php');
-    exit();
+    redirectWithError($validationError, 'register.php');
 }
 
 if (!verifyRecaptcha($config['recaptcha_secret'], $recaptchaResponse)) {
-    $_SESSION['e_register'] = "reCAPTCHA verification failed. Please try again.";
-    header('Location: register.php');
-    exit();
+   redirectWithError("reCAPTCHA verification failed. Please try again.", 'register.php');
 }
 
 
@@ -38,23 +36,17 @@ try {
     $db = getDatabaseConnection($config);
     
     if (!registerUser($db, $name, $email, $password)) {
-        $_SESSION['e_register'] = "An account with this email already exists!";
-        header('Location: register.php');
-        exit();
+        redirectWithError("An account with this email already exists!", 'register.php');
     }
    
     unset($_SESSION['given_name']);
     unset($_SESSION['given_email']);
 
-    $_SESSION['register_success'] = "Account created successfully! You can now log in.";
-    header('Location: login.php');
-    exit();
+    redirectWithSuccess("Account created successfully! You can now log in.", 'login.php');
 
     } catch (PDOException $e) {
     error_log('Registration Error (SQL/PDO): ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
-    $_SESSION['e_register'] = "Server error. Please try again later.";
-    header('Location: register.php');
-    exit();
+    redirectWithError("Server error. Please try again later.", 'register.php');
 }
 
 

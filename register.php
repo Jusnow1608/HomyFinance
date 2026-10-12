@@ -16,7 +16,7 @@
   <meta property="og:image" content="https://jusnow1608.github.io/HomyFinance/solution/home.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="627">
-  <meta property="og:url" content="https://jusnow1608.github.io/HomyFinance/register.html">
+  <meta property="og:url" content="https://jusnow1608.github.io/HomyFinance/register.php">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -36,7 +36,7 @@
   <!-- Logo & Navbar -->
   <header class="navbar navbar-expand-md navbar-light bg-white border-bottom shadow-sm">
     <div class="container d-flex align-items-center justify-content-between">
-      <a class="navbar-brand d-flex align-items-center my-1" href="login.html">
+      <a class="navbar-brand d-flex align-items-center my-1" href="login.php">
 
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" role="img" aria-label="HomyFinance Logo"
           class="d-inline-block navbar-logo">

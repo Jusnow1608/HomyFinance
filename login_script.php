@@ -3,6 +3,8 @@
 $config = require 'config.php';
 session_start();
 
+require_once 'functions.php';
+
 // Guard: Zabezpieczenie przed bezpośrednim wejściem pod URL
 if (!isset($_POST['email']) || !isset($_POST['password'])) {
     header('Location: login.php');
@@ -18,9 +20,7 @@ $_SESSION['given_login_email'] = $_POST['email'];
 // 1. Walidacja danych wejściowych za pomocą funkcji
 $validationError = validateLoginInput($email, $password);
 if ($validationError !== null) {
-    $_SESSION['e_login'] = $validationError;
-    header('Location: login.php');
-    exit();
+    redirectWithLoginError($validationError);   
 }
 
 require_once 'database.php';
@@ -46,16 +46,12 @@ try {
         header('Location: index.php');
         exit();
     } else {
-        $_SESSION['e_login'] = "Invalid email or password!";
-        header('Location: login.php');
-        exit();
+        redirectWithLoginError("Invalid email or password!");
     }
 
 } catch (PDOException $e) {
     error_log('Login Error (SQL/PDO): ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
-    $_SESSION['e_login'] = "Server error. Please try again later.";
-    header('Location: login.php');
-    exit();
+    redirectWithLoginError("Server error. Please try again later.");
 }
 
 
