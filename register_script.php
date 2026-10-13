@@ -119,10 +119,36 @@ function registerUser(PDO $db, string $name, string $email, string $password): b
 
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-    $insertQuery = $db->prepare('INSERT INTO users (username, password, email) VALUES (:name, :password, :email)');
-    $insertQuery->bindValue(':name', $name, PDO::PARAM_STR);
-    $insertQuery->bindValue(':email', $email, PDO::PARAM_STR);
-    $insertQuery->bindValue(':password', $passwordHash, PDO::PARAM_STR);
-    
-    return $insertQuery->execute();
+    // 1. Rozpoczynamy transakcję bazodanową
+    $db->beginTransaction();
+
+    try {
+        // 2. Dodanie nowego użytkownika
+        $insertQuery = $db->prepare('INSERT INTO users (username, password, email) VALUES (:name, :password, :email)');
+        $insertQuery->bindValue(':name', $name, PDO::PARAM_STR);
+        $insertQuery->bindValue(':email', $email, PDO::PARAM_STR);
+        $insertQuery->bindValue(':password', $passwordHash, PDO::PARAM_STR);
+        $insertQuery->execute();
+
+        // 3. Pobranie ID nowo utworzonego użytkownika
+        $userId = $db->lastInsertId();
+
+        // 4. Kopiowanie domyślnych kategorii wydatków
+        $db->query("INSERT INTO expenses_category_assigned_to_users (user_id, name) SELECT $userId, name FROM expenses_category_default");
+
+        // 5. Kopiowanie domyślnych kategorii przychodów
+        $db->query("INSERT INTO incomes_category_assigned_to_users (user_id, name) SELECT $userId, name FROM incomes_category_default");
+
+        // 6. Kopiowanie domyślnych metod płatności
+        $db->query("INSERT INTO payment_methods_assigned_to_users (user_id, name) SELECT $userId, name FROM payment_methods_default");
+
+        // 7. Zatwierdzenie transakcji, jeśli wszystko poszło pomyślnie
+        $db->commit();
+        return true;
+
+    } catch (Exception $e) {
+        // W razie jakiegokolwiek błędu cofamy zmiany w bazie
+        $db->rollBack();
+        throw $e;
+    }
 }

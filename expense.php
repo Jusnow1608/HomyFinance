@@ -1,3 +1,38 @@
+<?php
+session_start();
+
+// Guard: Jeśli użytkownik NIE jest zalogowany, przekieruj do logowania
+if (!isset($_SESSION['logged_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+$config = require 'config.php';
+require_once 'database.php';
+
+try {
+    $db = getDatabaseConnection($config);
+    $userId = $_SESSION['logged_id'];
+
+    // Pobieranie metod płatności użytkownika
+    $paymentStmt = $db->prepare('SELECT id, name FROM payment_methods_assigned_to_users WHERE user_id = :userId');
+    $paymentStmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $paymentStmt->execute();
+    $paymentMethods = $paymentStmt->fetchAll();
+
+    // Pobieranie kategorii wydatków użytkownika
+    $catStmt = $db->prepare('SELECT id, name FROM expenses_category_assigned_to_users WHERE user_id = :userId');
+    $catStmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $catStmt->execute();
+    $expenseCategories = $catStmt->fetchAll();
+
+} catch (PDOException $e) {
+    error_log('Expense View Error: ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
+    $paymentMethods = [];
+    $expenseCategories = [];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -124,7 +159,22 @@
                   <h1 class="h4 fw-bold mb-0">Expense</h1>
                 </div>
 
-                <form id="expenseForm">
+                <!-- Komunikaty o błędach lub sukcesie -->
+                <?php if (isset($_SESSION['e_expense'])): ?>
+                  <div class="alert alert-danger text-center small py-2 mb-3" role="alert">
+                    <?= htmlspecialchars($_SESSION['e_expense'], ENT_QUOTES, 'UTF-8'); ?>
+                  </div>
+                  <?php unset($_SESSION['e_expense']); ?>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['expense_success'])): ?>
+                  <div class="alert alert-success text-center small py-2 mb-3" role="alert">
+                    <?= htmlspecialchars($_SESSION['expense_success'], ENT_QUOTES, 'UTF-8'); ?>
+                  </div>
+                  <?php unset($_SESSION['expense_success']); ?>
+                <?php endif; ?>
+
+                <form id="expenseForm" method="post" action="expense_script.php" novalidate>
                   <!-- 1. Amount Input -->
                   <div class="row g-2 mb-3">
                     <div class="col-12 col-md-6">
@@ -134,7 +184,7 @@
                           <i class="bi bi-wallet2"></i>
                         </span>
                         <input type="number" step="0.01" min="0.01" class="form-control form-control-custom" id="expenseAmount"
-                          name="amount" aria-describedby="currency-addon" placeholder="0.00" required>
+                          name="amount" aria-describedby="currency-addon" placeholder="0.00" value="<?= htmlspecialchars($_SESSION['given_expense_amount'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
                         <span class="icon-custom" id="currency-addon">PLN</span>
                       </div>
                     </div>
@@ -147,7 +197,7 @@
                           <i class="bi bi-calendar-event"></i>
                         </span>
                         <input type="date" class="form-control form-control-custom" id="expenseDate" name="expenseDate"
-                          required>
+                         value="<?= htmlspecialchars($_SESSION['given_expense_date'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
                       </div>
                     </div>
                   </div>
@@ -157,27 +207,17 @@
                     <legend class="form-label fw-bold small d-block">Payment Method</legend>
                     <div class="row g-2">
 
-                      <div class="col-12 col-sm-4">
-                        <input type="radio" class="btn-check" name="paymentMethod" id="pay-cash" value="cash" checked>
-                        <label class="btn form-select-tile w-100 text-truncate" for="pay-cash" title="Cash">
-                          <i class="bi bi-cash-stack me-1"></i><span class="tile-text-custom"> Cash</span>
-                        </label>
-                      </div>
+                    <?php foreach ($paymentMethods as $index => $payment): 
+                    $isChecked = (!isset($_SESSION['given_expense_payment']) && $index === 0) || (isset($_SESSION['given_expense_payment']) && $_SESSION['given_expense_payment'] == $payment['id']);
+                    ?>
 
                       <div class="col-12 col-sm-4">
-                        <input type="radio" class="btn-check" name="paymentMethod" id="pay-debit" value="debit-card">
-                        <label class="btn form-select-tile w-100 text-truncate" for="pay-debit" title="Debit Card">
-                          <i class="bi bi-credit-card me-1"></i><span class="tile-text-custom"> Debit Card</span>
+                        <input type="radio" class="btn-check" name="paymentMethod" id="pay-<?= $payment['id']; ?>" value="<?= $payment['id']; ?>" <?= $isChecked ? 'checked' : ''; ?>>
+                        <label class="btn form-select-tile w-100 text-truncate" for="pay-<?= $payment['id']; ?>" title="<?= htmlspecialchars($payment['name'], ENT_QUOTES, 'UTF-8'); ?>">
+                          <span class="tile-text-custom"> <?= htmlspecialchars($payment['name'], ENT_QUOTES, 'UTF-8'); ?></span>
                         </label>
                       </div>
-
-                      <div class="col-12 col-sm-4">
-                        <input type="radio" class="btn-check" name="paymentMethod" id="pay-credit" value="credit-card">
-                        <label class="btn form-select-tile w-100 text-truncate" for="pay-credit" title="Credit Card">
-                          <i class="bi bi-credit-card-2-front me-1"></i><span class="tile-text-custom"> Credit
-                            Card</span>
-                        </label>
-                      </div>
+                    <?php endforeach; ?>
 
                     </div>
                   </fieldset>
@@ -188,124 +228,16 @@
                     <legend class="form-label fw-bold small d-block">Category</legend>
                     <div class="row g-2">
 
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-food" value="food" checked>
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-food">
-                          <i class="bi bi-cart me-1"></i><span class="tile-text-custom"> Food</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-apartments" value="apartments">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-apartments">
-                          <i class="bi bi-house-door me-1"></i><span class="tile-text-custom"> Apartments</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-transport" value="transport">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-transport">
-                          <i class="bi bi-car-front me-1"></i><span class="tile-text-custom"> Transport</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-telecom" value="telecom">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-telecom">
-                          <i class="bi bi-phone me-1"></i><span class="tile-text-custom"> Telecom</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-health" value="health">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-health">
-                          <i class="bi bi-heart-pulse me-1"></i><span class="tile-text-custom"> Health</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-clothing" value="clothing">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-clothing">
-                          <i class="bi bi-tag me-1"></i><span class="tile-text-custom"> Clothing</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-hygiene" value="hygiene">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-hygiene">
-                          <i class="bi bi-stars me-1"></i><span class="tile-text-custom"> Hygiene</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-kids" value="kids">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-kids">
-                          <i class="bi bi-person-heart me-1"></i><span class="tile-text-custom"> Kids</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-recreation" value="recreation">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-recreation">
-                          <i class="bi bi-film me-1"></i><span class="tile-text-custom"> Recreation</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-trip" value="trip">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-trip">
-                          <i class="bi bi-airplane me-1"></i><span class="tile-text-custom"> Trip</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-training" value="training">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-training">
-                          <i class="bi bi-mortarboard me-1"></i><span class="tile-text-custom"> Training</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-books" value="books">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-books">
-                          <i class="bi bi-book me-1"></i><span class="tile-text-custom"> Books</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-savings" value="savings">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-savings">
-                          <i class="bi bi-piggy-bank me-1"></i><span class="tile-text-custom"> Savings</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-pension" value="pension">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-pension">
-                          <i class="bi bi-bank me-1"></i><span class="tile-text-custom"> For Retirement</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-debt" value="debt-repayment">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-debt">
-                          <i class="bi bi-credit-card me-1"></i><span class="tile-text-custom"> Debt Repayment</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-donation" value="donation">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-donation">
-                          <i class="bi bi-heart me-1"></i><span class="tile-text-custom"> Donation</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <input type="radio" class="btn-check" name="category" id="cat-other" value="other">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-other">
-                          <i class="bi bi-three-dots me-1"></i><span class="tile-text-custom"> Another</span>
-                        </label>
-                      </div>
+                    <?php foreach ($expenseCategories as $index => $cat): 
+                    $isChecked = (!isset($_SESSION['given_expense_category']) && $index === 0) || (isset($_SESSION['given_expense_category']) && $_SESSION['given_expense_category'] == $cat['id']);
+                    ?>
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                      <input type="radio" class="btn-check" name="category" id="cat-<?= $cat['id']; ?>" value="<?= $cat['id']; ?>" <?= $isChecked ? 'checked' : ''; ?>>
+                      <label class="btn form-select-tile w-100 text-truncate" for="cat-<?= $cat['id']; ?>" title="<?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?>">
+                        <span class="tile-text-custom"> <?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?></span>
+                      </label>
+                    </div>
+                    <?php endforeach; ?>
 
                     </div>
                   </fieldset>
@@ -314,7 +246,7 @@
                   <div class="mb-3">
                     <label for="comment" class="form-label fw-bold small">Comment (optional)</label>
                     <textarea class="form-control form-control-custom" id="comment" name="comment" rows="1"
-                      placeholder="Where or what did you spend it on?"></textarea>
+                      placeholder="Where or what did you spend it on?"><?= htmlspecialchars($_SESSION['given_expense_comment'] ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
                   </div>
 
                   <!-- Submit Buttons -->
@@ -324,6 +256,15 @@
                   </div>
 
                 </form>
+
+                <?php 
+                  // Czyszczenie tymczasowych danych z sesji po ich załadowaniu
+                  unset($_SESSION['given_expense_amount']);
+                  unset($_SESSION['given_expense_date']);
+                  unset($_SESSION['given_expense_payment']);
+                  unset($_SESSION['given_expense_category']);
+                  unset($_SESSION['given_expense_comment']);
+                ?>
 
               </div>
             </div>

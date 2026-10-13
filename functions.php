@@ -31,3 +31,12 @@ function redirectWithSuccess(string $successMessage, string $redirectUrl = 'logi
     header("Location: $redirectUrl");
     exit();
 }
+
+/**
+ * Funkcja pomocnicza do przekierowania z błędem specyficznym dla wydatków
+ */
+function redirectWithExpenseError(string $errorMessage): void {
+    $_SESSION['e_expense'] = $errorMessage;
+    header('Location: expense.php');
+    exit();
+}

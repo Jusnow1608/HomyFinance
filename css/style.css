@@ -345,17 +345,17 @@ h2.text-expense-custom,
   
   .tile-text-custom {
     display: inline;
-    font-size: var( --font-size-xs);
+    font-size: var( --font-size-md);
     line-height: 1.1;
   }
   .btn.form-select-tile {
-    padding: var(--spacing-xs) var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
   }
 
   .form-control-custom {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
   }
 }
 
