@@ -299,7 +299,7 @@ color: var(--color-primary);
   padding-block: var(--spacing-sm);
   padding-inline: var(--spacing-md);
   border-radius: var(--border-radius);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
 }
 
 .btn.form-select-tile:hover {
@@ -345,7 +345,7 @@ h2.text-expense-custom,
   
   .tile-text-custom {
     display: inline;
-    font-size: var( --font-size-md);
+    font-size: var( --font-size-sm);
     line-height: 1.1;
   }
   .btn.form-select-tile {
@@ -355,7 +355,7 @@ h2.text-expense-custom,
   .form-control-custom {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
   }
 }
 

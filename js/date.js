@@ -1,5 +1,5 @@
   document.addEventListener("DOMContentLoaded", () => {
-      const dateInput = document.getElementById("date");
+      const dateInput = document.getElementById("expenseDate") || document.getElementById("incomeDate") || document.querySelector('input[type="date"]');
       const form = dateInput ? dateInput.closest("form") : null;
 
       const getTodayLocalDate = () => {
