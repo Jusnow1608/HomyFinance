@@ -69,7 +69,7 @@ try {
   <!-- Navbar -->
   <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
     <div class="container d-flex align-items-center justify-content-between">
-      <a class="navbar-brand d-flex align-items-center my-1" href="login.php">
+      <a class="navbar-brand d-flex align-items-center my-1" href="index.php">
 
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" role="img" aria-label="HomyFinance Logo"
           class="d-inline-block navbar-logo">
@@ -245,7 +245,7 @@ try {
                   <!-- 5. Comment / Note -->
                   <div class="mb-3">
                     <label for="comment" class="form-label fw-bold small">Comment (optional)</label>
-                    <textarea class="form-control form-control-custom" id="comment" name="comment" rows="1"
+                    <textarea class="form-control form-control-custom" id="comment" name="comment" rows="1" maxlength="100"
                       placeholder="Where or what did you spend it on?"><?= htmlspecialchars($_SESSION['given_expense_comment'] ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
                   </div>
 

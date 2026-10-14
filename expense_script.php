@@ -35,7 +35,7 @@ try {
     $db = getDatabaseConnection($config);
 
     // 1. Walidacja danych wejściowych i uprawnień do ID kategorii / płatności
-    $validationError = validateAndGetExpenseIds($db, $userId, $amount, $expenseDate, $paymentMethodId, $categoryId);
+    $validationError = validateAndGetExpenseIds($db, $userId, $amount, $expenseDate, $paymentMethodId, $categoryId, $comment);
     if ($validationError !== null) {
         redirectWithExpenseError($validationError);
     }
@@ -66,8 +66,11 @@ try {
 /**
  * Walidacja danych oraz weryfikacja czy kategoria i metoda płatności należą do użytkownika
  */
-function validateAndGetExpenseIds(PDO $db, int $userId, $amount, string $date, $paymentMethodId, $categoryId): ?string
+function validateAndGetExpenseIds(PDO $db, int $userId, $amount, string $date, $paymentMethodId, $categoryId, $comment): ?string
 {
+    // Zamiana przecinka na kropkę (gdyby użytkownik wpisał np. 12,50)
+    $amount = str_replace(',', '.', $amount);
+
     if (!is_numeric($amount) || floatval($amount) <= 0) {
         return "Please enter a valid amount greater than 0.";
     }
@@ -75,6 +78,18 @@ function validateAndGetExpenseIds(PDO $db, int $userId, $amount, string $date, $
     if (empty($date) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
         return "Please select a valid date.";
     }
+
+    // Sprawdzenie, czy liczba ma maksymalnie dwie cyfry po przecinku
+    // (np. pasuje 10, 10.5, 10.55, ale odrzuci 10.555)
+    if (!preg_match('/^\d+(\.\d{1,2})?$/', $amount)) {
+        return "Amount can have a maximum of 2 decimal places.";
+    }
+
+    list($year, $month, $day) = explode('-', $date);
+
+    if (!checkdate((int)$month, (int)$day, (int)$year)) {
+        return "Please select a valid calendar date.";
+}
 
     // Weryfikacja czy metoda płatności należy do zalogowanego użytkownika
     $payStmt = $db->prepare('SELECT id FROM payment_methods_assigned_to_users WHERE id = :payId AND user_id = :userId');
@@ -89,15 +104,16 @@ function validateAndGetExpenseIds(PDO $db, int $userId, $amount, string $date, $
     if (!$catStmt->fetch()) {
         return "Invalid category selected.";
     }
-
+    
+    if (mb_strlen($comment) > 100) {
+    return "Comment cannot exceed 100 characters.";
+  }
     return null; // Brak błędów
 }
 
 
 /**
- * Zapis w bazie danych przy użyciu PDO (Prepared Statements)
- * Odpowiada strukturze tabeli 'expenses' od mentora.
- */
+ * Zapis w bazie danych przy użyciu PDO (Prepared Statements) */
 function saveExpense(PDO $db, int $userId, string $amount, string $date, int $paymentMethodId, int $categoryId, string $comment): bool
 {
     $query = $db->prepare('
