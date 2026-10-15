@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 // Czyszczenie sesji i ciastek sesyjnych

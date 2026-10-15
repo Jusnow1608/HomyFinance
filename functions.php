@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Pomocnicza funkcja do bezpiecznego przekierowywania z komunikatem o błędzie.
  * 

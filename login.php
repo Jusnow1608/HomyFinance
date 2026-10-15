@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 // Jeśli użytkownik jest już zalogowany, przekieruj do index.php
