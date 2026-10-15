@@ -162,7 +162,7 @@ if (!isset($_SESSION['logged_id'])) {
               <p class="card-text text-muted small mb-3 d-md-block">Just received your paycheck or earned some extra
                 money?
                 Record the income.</p>
-              <a href="#" class="btn btn-success-custom w-100 mt-auto fw-bold rounded-3 py-2">Add Income</a>
+              <a href="income.php" class="btn btn-success-custom w-100 mt-auto fw-bold rounded-3 py-2">Add Income</a>
             </div>
           </article>
         </div>

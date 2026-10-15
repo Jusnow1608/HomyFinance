@@ -40,3 +40,12 @@ function redirectWithExpenseError(string $errorMessage): void {
     header('Location: expense.php');
     exit();
 }
+
+/**
+ * Funkcja pomocnicza do przekierowania z błędem specyficznym dla przychodów
+ */
+function redirectWithIncomeError(string $errorMessage): void {
+    $_SESSION['e_income'] = $errorMessage;
+    header('Location: income.php');
+    exit();
+}

@@ -1,3 +1,32 @@
+<?php
+session_start();
+
+// Guard: Jeśli użytkownik NIE jest zalogowany, przekieruj do logowania
+if (!isset($_SESSION['logged_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+$config = require 'config.php';
+require_once 'database.php';
+
+try {
+    $db = getDatabaseConnection($config);
+    $userId = $_SESSION['logged_id'];
+
+    // Pobieranie kategorii przychodów użytkownika
+    $catStmt = $db->prepare('SELECT id, name FROM incomes_category_assigned_to_users WHERE user_id = :userId');
+    $catStmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $catStmt->execute();
+    $incomeCategories = $catStmt->fetchAll();
+
+} catch (PDOException $e) {
+    error_log('Income View Error: ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
+    $incomeCategories = [];
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +63,7 @@
   <!-- Navbar -->
   <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
     <div class="container d-flex align-items-center justify-content-between">
-      <a class="navbar-brand d-flex align-items-center my-1" href="login.php">
+      <a class="navbar-brand d-flex align-items-center my-1" href="index.php">
 
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" role="img" aria-label="HomyFinance Logo"
           class="d-inline-block navbar-logo">
@@ -124,7 +153,21 @@
                   <h1 class="h4 fw-bold mb-0">Income</h1>
                 </div>
 
-                <form id="incomeForm">
+                <?php if (isset($_SESSION['e_income'])): ?>
+                <div class="alert alert-danger text-center small py-2 mb-3" role="alert">
+                  <?= htmlspecialchars($_SESSION['e_income'], ENT_QUOTES, 'UTF-8'); ?>
+                </div>
+                <?php unset($_SESSION['e_income']); ?>
+              <?php endif; ?>
+
+              <?php if (isset($_SESSION['income_success'])): ?>
+                <div class="alert alert-success text-center small py-2 mb-3" role="alert">
+                  <?= htmlspecialchars($_SESSION['income_success'], ENT_QUOTES, 'UTF-8'); ?>
+                </div>
+                <?php unset($_SESSION['income_success']); ?>
+              <?php endif; ?>
+
+                <form id="incomeForm" method="post" action="income_script.php" novalidate>
                   <!-- 1. Amount Input -->
                   <div class="row g-2 mb-3">
                     <div class="col-12 col-md-6">
@@ -134,7 +177,8 @@
                           <i class="bi bi-wallet2"></i>
                         </span>
                         <input type="number" step="0.01" min="0.01" class="form-control form-control-custom" id="incomeAmount"
-                          name="amount" aria-describedby="currency-addon" placeholder="0.00" required>
+                          name="amount" aria-describedby="currency-addon" placeholder="0.00" 
+                          value="<?= htmlspecialchars($_SESSION['given_income_amount'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
                         <span class="icon-custom" id="currency-addon">PLN</span>
                       </div>
                     </div>
@@ -147,7 +191,7 @@
                           <i class="bi bi-calendar-event"></i>
                         </span>
                         <input type="date" class="form-control form-control-custom" id="incomeDate" name="incomeDate"
-                          required>
+                          value="<?= htmlspecialchars($_SESSION['given_income_date'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
                       </div>
                     </div>
                   </div>
@@ -157,33 +201,16 @@
                     <legend class="form-label fw-bold small d-block">Category</legend>
                     <div class="row g-2">
 
-                      <div class="col-6 col-md-3">
-                        <input type="radio" class="btn-check" name="category" id="cat-paycheck" value="paycheck" checked>
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-paycheck">
-                          <i class="bi bi-briefcase me-1"></i><span class="tile-text-custom"> Paycheck</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-md-3">
-                        <input type="radio" class="btn-check" name="category" id="cat-investments" value="investments">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-investments">
-                          <i class="bi bi-graph-up-arrow me-1"></i><span class="tile-text-custom"> Investments</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-md-3">
-                        <input type="radio" class="btn-check" name="category" id="cat-passive" value="passive">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-passive">
-                          <i class="bi bi-piggy-bank me-1"></i><span class="tile-text-custom"> Passive income</span>
-                        </label>
-                      </div>
-
-                      <div class="col-6 col-md-3">
-                        <input type="radio" class="btn-check" name="category" id="cat-other" value="other">
-                        <label class="btn form-select-tile w-100 text-truncate" for="cat-other">
-                          <i class="bi bi-three-dots me-1"></i><span class="tile-text-custom"> Another</span>
-                        </label>
-                      </div>
+                    <?php foreach ($incomeCategories as $index => $cat): 
+                    $isChecked = (!isset($_SESSION['given_income_category']) && $index === 0) || (isset($_SESSION['given_income_category']) && $_SESSION['given_income_category'] == $cat['id']);
+                    ?>
+                    <div class="col-6 col-sm-4 col-md-3">
+                      <input type="radio" class="btn-check" name="category" id="cat-<?= $cat['id']; ?>" value="<?= $cat['id']; ?>" <?= $isChecked ? 'checked' : ''; ?>>
+                      <label class="btn form-select-tile w-100 text-truncate" for="cat-<?= $cat['id']; ?>" title="<?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?>">
+                        <span class="tile-text-custom"> <?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?></span>
+                      </label>
+                    </div>
+                    <?php endforeach; ?>
 
                     </div>
                   </fieldset>
@@ -191,8 +218,8 @@
                   <!-- 5. Comment / Note -->
                   <div class="mb-3">
                     <label for="comment" class="form-label fw-bold small">Comment (optional)</label>
-                    <textarea class="form-control form-control-custom" id="comment" name="comment" rows="1"
-                      placeholder="Where did this income come from?"></textarea>
+                    <textarea class="form-control form-control-custom" id="comment" name="comment" rows="1" maxlength="100"
+                      placeholder="Where did this income come from?"><?= htmlspecialchars($_SESSION['given_income_comment'] ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
                   </div>
 
                   <!-- Submit Buttons -->
@@ -202,6 +229,13 @@
                   </div>
 
                 </form>
+                
+                <?php 
+                unset($_SESSION['given_income_amount']);
+                unset($_SESSION['given_income_date']);
+                unset($_SESSION['given_income_category']);
+                unset($_SESSION['given_income_comment']);
+                ?>
 
               </div>
             </div>
