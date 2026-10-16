@@ -62,74 +62,7 @@ try {
 <body class="body-custom d-flex flex-column min-vh-100">
 
   <!-- Navbar -->
-  <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
-    <div class="container d-flex align-items-center justify-content-between">
-      <a class="navbar-brand d-flex align-items-center my-1" href="index.php">
-
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 70" role="img" aria-label="HomyFinance Logo"
-          class="d-inline-block navbar-logo">
-          <defs>
-            <linearGradient id="badge-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#ffffff" />
-              <stop offset="100%" stop-color="#f4efe6" />
-            </linearGradient>
-            <linearGradient id="note-green" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#52796f" />
-              <stop offset="100%" stop-color="#2f3e46" />
-            </linearGradient>
-            <linearGradient id="gold-money" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#f3b61f" />
-              <stop offset="100%" stop-color="#e07a5f" />
-            </linearGradient>
-            <filter id="soft-shadow" x="-10%" y="-10%" width="130%" height="130%">
-              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2f3e46" flood-opacity="0.12" />
-            </filter>
-            <filter id="note-shadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#2f3e46" flood-opacity="0.2" />
-            </filter>
-          </defs>
-
-          <g id="logo-badge" aria-hidden="true" focusable="false" filter="url(#soft-shadow)">
-            <rect x="5" y="5" width="60" height="60" rx="18" fill="url(#badge-bg)" stroke="#e8dfd1"
-              stroke-width="1.5" />
-            <g id="money-note" filter="url(#note-shadow)">
-              <rect x="17" y="19" width="36" height="32" rx="6" fill="url(#note-green)" />
-              <rect x="20" y="22" width="30" height="26" rx="4" fill="none" stroke="#ffffff" stroke-width="1.2"
-                opacity="0.4" stroke-dasharray="3 1.5" />
-              <circle cx="35" cy="35" r="8.5" fill="url(#gold-money)" />
-              <text x="35" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="900"
-                fill="#ffffff" text-anchor="middle">$</text>
-            </g>
-          </g>
-
-          <g id="logo-text" aria-hidden="true" focusable="false">
-            <text x="80" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="35" font-weight="800"
-              letter-spacing="-0.5px">
-              <tspan fill="#2f3e46">Homy</tspan>
-              <tspan fill="#558467">Finance</tspan>
-            </text>
-          </g>
-        </svg>
-      </a>
-
-      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <nav class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto navbar-custom">
-          <li class="nav-item"><a class="nav-link px-3" href="index.php">Home</a></li>
-          <li class="nav-item"><a class="nav-link px-3" href="expense.php">Add
-              Expense</a></li>
-          <li class="nav-item"><a class="nav-link active px-3" aria-current="page" href="income.php">Add Income</a></li>
-          <li class="nav-item"><a class="nav-link px-3" href="balance.php">View Balance</a></li>
-          <li class="nav-item"><a class="nav-link px-3" href="#">Settings</a></li>
-          <li class="nav-item"><a class="nav-link px-3" href="login.php">Logout</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <?php include 'templates/navbar.php' ?>
 
   <main class="flex-grow-1 d-flex flex-column">
 
@@ -249,11 +182,7 @@ try {
   </main>
 
   <!-- Footer -->
-  <footer class="bg-white border-top py-3 text-center text-muted small">
-    <div class="container">
-      &copy; 2026 HomyFinance. All Rights Reserved.
-    </div>
-  </footer>
+  <?php include 'templates/footer.php'; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
