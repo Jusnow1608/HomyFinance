@@ -17,6 +17,27 @@ function validateRegistrationInput(string $name, $email, string $password, strin
        return "Password must be between 8 and 20 characters long.";
     }
 
+    // Dodatkowe rygorystyczne wymagania bezpieczeństwa hasła:
+    // 1. Przynajmniej jedna mała litera
+    if (!preg_match('/[a-z]/', $password)) {
+        return "Password must contain at least one lowercase letter.";
+    }
+
+    // 2. Przynajmniej jedna wielka litera
+    if (!preg_match('/[A-Z]/', $password)) {
+        return "Password must contain at least one uppercase letter.";
+    }
+
+    // 3. Przynajmniej jedna cyfra
+    if (!preg_match('/[0-9]/', $password)) {
+        return "Password must contain at least one number.";
+    }
+
+    // 4. Przynajmniej jeden znak specjalny
+    if (!preg_match('/[\W_]/', $password)) {
+        return "Password must contain at least one special character.";
+    }
+
     if (empty($recaptchaResponse)) {
        return "Please confirm that you are not a robot.";
     }
