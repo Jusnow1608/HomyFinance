@@ -157,14 +157,6 @@ try {
 
                       <tr>
                         <td>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="text-muted me-2" viewBox="0 0 16 16" aria-hidden="true">
-                            <path
-                              d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zM1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5z" />
-                            <path d="M8 8.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
-                            <path
-                              d="M2 5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1A.5.5 0 0 1 2 5m11 6a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1 0-1h1a.5.5 0 0 1 .5.5" />
-                          </svg>
                           <?= htmlspecialchars($income['category_name'], ENT_QUOTES, 'UTF-8'); ?>
                         </td>
                         <td class="text-end fw-bold text-success-custom"><?= number_format((float)$income['total_amount'], 2, '.', ''); ?> PLN</td>
@@ -227,12 +219,7 @@ try {
                         
                       <tr>
                         <td>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="text-muted me-2" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                            <path
-                              d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
-                          </svg>
-                          <?= htmlspecialchars($expense['category_name'], ENT_QUOTES, 'UTF-8'); ?>
+                         <?= htmlspecialchars($expense['category_name'], ENT_QUOTES, 'UTF-8'); ?>
                         </td>
                         <td class="text-end fw-bold text-expense-custom">
                           <?= number_format((float)$expense['total_amount'], 2, '.', ''); ?> PLN</td>
