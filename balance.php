@@ -115,7 +115,7 @@ try {
           </div>
         </div>
 
-        <!-- Incomes & Expenses Tables Grid -->
+        <!-- Incomes & Expenses Tables Grid-->
         <div class="row g-4 mb-4">
 
           <!-- Table 1: Incomes by Category -->
@@ -292,14 +292,39 @@ try {
           </div>
         </div>
 
+        <!-- 3. Charts Section: Income & Expense Distribution (Na samym końcu strony) -->
+        <div class="row g-4 mb-4">
+          
+          <!-- Income Chart Section (Donut Chart) -->
+          <div class="col-12 col-lg-6">
+            <article class="card border-0 shadow-sm rounded-4 p-3 p-md-4 h-100">
+              <div class="card-body">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <div class="rounded-circle income-circle p-2 d-inline-flex align-items-center justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                      viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                      <path
+                        d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                    </svg>
+                  </div>
+                  <h2 class="h5 fw-bold mb-0">Income Distribution</h2>
+                </div>
+
+                <div class="chart-container d-flex justify-content-center align-items-center">
+                  <canvas id="incomeChart" aria-hidden="true"></canvas>
+                </div>
+              </div>
+            </article>
+          </div>
+
         <!-- Expense Chart Section (Donut Chart) -->
-        <div class="row mb-4">
-          <div class="col-12">
+        
+          <div class="col-12 col-lg-6">
             <article class="card border-0 shadow-sm rounded-4 p-3 p-md-4">
               <div class="card-body">
                 <div class="d-flex align-items-center gap-2 mb-3">
                   <div
-                    class="rounded-circle balance-circle p-2 d-inline-flex align-items-center justify-content-center">
+                    class="rounded-circle expense-circle p-2 d-inline-flex align-items-center justify-content-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
                       viewBox="0 0 16 16" aria-hidden="true" focusable="false">
                       <path
@@ -395,12 +420,24 @@ try {
       $chartLabels[] = $expense['category_name'];
       $chartData[] = (float)$expense['total_amount'];
   }
+
+  // Przygotowujemy dane do wykresu przychodów w formacie JSON
+  $incomeLabels = [];
+  $incomeData = [];
+
+  foreach ($incomesSummary as $income) {
+      $incomeLabels[] = $income['category_name'];
+      $incomeData[] = (float)$income['total_amount'];
+  }
   ?>
 
   <script>
     // Przekazujemy dane z PHP do zmiennych JavaScript
     const expenseChartLabels = <?= json_encode($chartLabels); ?>;
     const expenseChartData = <?= json_encode($chartData); ?>;
+
+    const incomeChartLabels = <?= json_encode($incomeLabels); ?>;
+    const incomeChartData = <?= json_encode($incomeData); ?>;
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>

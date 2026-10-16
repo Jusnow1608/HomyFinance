@@ -107,7 +107,7 @@ session_start();
                       required>
                   </div>
 
-                  <small class="text-muted d-block mt-1 mb-3">Password must be 8-20 characters long and include lowercase, uppercase, a number, and a special character.</small>
+                  <small class="text-muted d-block mb-1 mb-3">Password must be 8-20 characters long and include lowercase, uppercase, a number, and a special character.</small>
 
                   <div class="mb-3 d-flex justify-content-center">
                     <div class="g-recaptcha" data-sitekey="6Len2sotAAAAAErOGe40Qrze4Uoj1Lv1vkpy9Pm1"></div>

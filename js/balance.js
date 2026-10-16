@@ -22,51 +22,75 @@
         }
     });
 
-      // Chart Logic (używamy zmiennych przekazanych z PHP lub domyślnych pustych tablic, jeśli brak wydatków)
-      const ctx = document.getElementById('expenseChart').getContext('2d');
-      
-      // Korzystamy ze zmiennych zdefiniowanych w pliku balance.php
-      const labels = (typeof expenseChartLabels !== 'undefined') ? expenseChartLabels : [];
-      const dataValues = (typeof expenseChartData !== 'undefined') ? expenseChartData : [];
-
-      // Paleta kolorów dopasowana do HomyFinance
+    // Paleta kolorów dopasowana do HomyFinance
       const backgroundColors = ['#e76f51', '#f4a261', '#e9c46a', '#2a9d8f', '#52796f', '#2f3e46', '#e07a5f'];
-
-      new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: labels,
-          datasets: [{
-            data: dataValues,
-            backgroundColor: backgroundColors.slice(0, labels.length),
-            borderWidth: 2,
-            borderColor: '#ffffff'
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                font: {
-                  family: 'system-ui, -apple-system, sans-serif',
-                  size: 14,
-                  weight: '600'
-                },
-                padding: 16
-              }
-            },
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  return ` ${context.label}: ${context.raw.toFixed(2)} PLN`;
-                }
-              }
-            }
+    
+      // Wspólne opcje dla wykresów Chart.js
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          font: {
+            family: 'system-ui, -apple-system, sans-serif',
+            size: 13,
+            weight: '600'
           },
-          cutout: '62%'
+          padding: 14
         }
-      });
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            return ` ${context.label}: ${context.raw.toFixed(2)} PLN`;
+          }
+        }
+      }
+    },
+    cutout: '62%'
+  };
+
+      // 1. Inicjalizacja wykresu Przychodów (Income Chart)
+  const incomeCtx = document.getElementById('incomeChart');
+  if (incomeCtx) {
+    const incLabels = (typeof incomeChartLabels !== 'undefined') ? incomeChartLabels : [];
+    const incData = (typeof incomeChartData !== 'undefined') ? incomeChartData : [];
+
+    new Chart(incomeCtx.getContext('2d'), {
+      type: 'doughnut',
+      data: {
+        labels: incLabels,
+        datasets: [{
+          data: incData,
+          backgroundColor: backgroundColors.slice(0, incLabels.length),
+          borderWidth: 2,
+          borderColor: '#ffffff'
+        }]
+      },
+      options: chartOptions
     });
+  }
+
+  // 2. Inicjalizacja wykresu Wydatków (Expense Chart)
+  const expenseCtx = document.getElementById('expenseChart');
+  if (expenseCtx) {
+    const expLabels = (typeof expenseChartLabels !== 'undefined') ? expenseChartLabels : [];
+    const expData = (typeof expenseChartData !== 'undefined') ? expenseChartData : [];
+
+    new Chart(expenseCtx.getContext('2d'), {
+      type: 'doughnut',
+      data: {
+        labels: expLabels,
+        datasets: [{
+          data: expData,
+          backgroundColor: backgroundColors.slice(0, expLabels.length),
+          borderWidth: 2,
+          borderColor: '#ffffff'
+        }]
+      },
+      options: chartOptions
+    });
+  }
+});
