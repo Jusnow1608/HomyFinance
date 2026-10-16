@@ -1,3 +1,44 @@
+<?php
+
+session_start();
+
+// Guard: Jeśli użytkownik NIE jest zalogowany, przekieruj do logowania
+if (!isset($_SESSION['logged_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+$config = require 'config.php';
+require_once 'database.php';
+require_once 'balance_functions.php';
+
+// Inicjalizacja pustych tablic na wypadek błędów
+$expensesSummary = [];
+$incomesSummary = [];
+
+try {
+    $db = getDatabaseConnection($config);
+    $userId = $_SESSION['logged_id'];
+
+    // Odbieramy parametry z adresu URL (metoda GET)
+    $period = $_GET['period'] ?? 'current_month';
+    $customStart = $_GET['startDate'] ?? null;
+    $customEnd = $_GET['endDate'] ?? null;
+
+    // Pobieramy odpowiedni zakres dat korzystając z nowej funkcji w balance_functions.php
+    $dates = getDateRange($period, $customStart, $customEnd);
+    $startDate = $dates['start'];
+    $endDate = $dates['end'];
+
+    // Pobieramy podsumowania z bazy w bloku try (sukces)
+    $expensesSummary = getExpensesByCategory($db, $userId, $startDate, $endDate);
+    $incomesSummary = getIncomesByCategory($db, $userId, $startDate, $endDate);
+
+    } catch (PDOException $e) {
+    error_log('Balance Error: ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -168,6 +209,19 @@
                       </tr>
                     </thead>
                     <tbody>
+                      
+                    <?php 
+                    $totalIncomes = 0;
+                    if (empty($incomesSummary)): 
+                    ?>
+                      <tr>
+                        <td colspan="2" class="text-center text-muted py-3">No incomes found for this period.</td>
+                      </tr>
+                    <?php else: ?>
+                      <?php foreach ($incomesSummary as $income): 
+                          $totalIncomes += (float)$income['total_amount'];
+                      ?>
+
                       <tr>
                         <td>
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -178,27 +232,21 @@
                             <path
                               d="M2 5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1A.5.5 0 0 1 2 5m11 6a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1 0-1h1a.5.5 0 0 1 .5.5" />
                           </svg>
-                          Salary
+                          <?= htmlspecialchars($income['category_name'], ENT_QUOTES, 'UTF-8'); ?>
                         </td>
-                        <td class="text-end fw-bold text-success-custom">4000.00 PLN</td>
+                        <td class="text-end fw-bold text-success-custom"><?= number_format((float)$income['total_amount'], 2, '.', ''); ?> PLN</td>
                       </tr>
-                      <tr>
-                        <td>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="text-muted me-2" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                            <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                            <path
-                              d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm10 7a1 1 0 1 1 0-2 1 1 0 0 1 0 2m0-4a1 1 0 1 1 0-2 1 1 0 0 1 0 2M4 7a1 1 0 1 1 0-2 1 1 0 0 1 0 2m0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                          </svg>
-                          Allegro Sales
-                        </td>
-                        <td class="text-end fw-bold text-success-custom">500.00 PLN</td>
-                      </tr>
+
+                      <?php endforeach; ?>
+                      <?php endif; ?>
+                    
                     </tbody>
                     <tfoot class="table-group-divider fw-bold">
                       <tr>
                         <th scope="row">Total Income:</th>
-                        <td class="text-end text-success-custom fs-6">4500.00 PLN</td>
+                        <td class="text-end text-success-custom fs-6">
+                          <?= number_format($totalIncomes, 2, '.', ''); ?> PLN
+                        </td>
                       </tr>
                     </tfoot>
                   </table>
@@ -231,6 +279,19 @@
                       </tr>
                     </thead>
                     <tbody>
+
+                      <?php 
+                      $totalExpenses = 0;
+                      if (empty($expensesSummary)): 
+                      ?>
+                        <tr>
+                          <td colspan="2" class="text-center text-muted py-3">No expenses found for this period.</td>
+                        </tr>
+                      <?php else: ?>
+                        <?php foreach ($expensesSummary as $expense): 
+                            $totalExpenses += (float)$expense['total_amount'];
+                      ?>
+                        
                       <tr>
                         <td>
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -238,48 +299,20 @@
                             <path
                               d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
                           </svg>
-                          Apartments
+                          <?= htmlspecialchars($expense['category_name'], ENT_QUOTES, 'UTF-8'); ?>
                         </td>
-                        <td class="text-end fw-bold text-expense-custom">1200.00 PLN</td>
+                        <td class="text-end fw-bold text-expense-custom">
+                          <?= number_format((float)$expense['total_amount'], 2, '.', ''); ?> PLN</td>
                       </tr>
-                      <tr>
-                        <td>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="text-muted me-2" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                            <path
-                              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                          </svg>
-                          Food
-                        </td>
-                        <td class="text-end fw-bold text-expense-custom">850.00 PLN</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="text-muted me-2" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                            <path
-                              d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1h-2v2h2zm-2 3h2v2h-2zm2 3h-2v2h2zm-2 3h2v2h-2zm2 3h-2v2h2z" />
-                          </svg>
-                          Recreation
-                        </td>
-                        <td class="text-end fw-bold text-expense-custom">500.00 PLN</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="text-muted me-2" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                            <path
-                              d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.724.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.833a2.5 2.5 0 0 1-1-1.997v-.413q0-.248.049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848zM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z" />
-                          </svg>
-                          Transport
-                        </td>
-                        <td class="text-end fw-bold text-expense-custom">300.00 PLN</td>
-                      </tr>
+                      <?php endforeach; ?>
+                      <?php endif; ?>
+                      
                     </tbody>
                     <tfoot class="table-group-divider fw-bold">
                       <tr>
                         <th scope="row">Total Expenses:</th>
-                        <td class="text-end text-expense-custom fs-6">2850.00 PLN</td>
+                        <td class="text-end text-expense-custom fs-6">
+                          <?= number_format($totalExpenses, 2, '.', ''); ?> PLN</td>
                       </tr>
                     </tfoot>
                   </table>
@@ -295,22 +328,31 @@
           <div class="col-12">
 
             <!-- Balance Example -->
+             <?php 
+              $balance = $totalIncomes - $totalExpenses;
+              $balanceFormatted = number_format(abs($balance), 2, '.', '');
+              $isPositive = $balance >= 0;
+            ?>
             <article class="card border-0 shadow-sm rounded-4 p-3 p-md-4 text-center">
               <div class="card-body p-2">
                 <h2 class="h5 text-muted fw-bold mb-2">Total Financial Balance</h2>
 
-                <div class="d-inline-block px-4 py-2 rounded-pill income-circle mb-3">
-                  <span class="fs-2 fw-extrabold text-success-custom">+1650.00 PLN</span>
+                <div class="d-inline-block px-4 py-2 rounded-pill <?= $isPositive ? 'income-circle' : 'expense-circle'; ?> mb-3">
+                  <span class="fs-2 fw-extrabold <?= $isPositive ? 'text-success-custom' : 'text-expense-custom'; ?>">
+                    <?= $isPositive ? '+' : '-'; ?><?= $balanceFormatted; ?> PLN
+                  </span>
                 </div>
 
                 <div
-                  class="alert alert-success d-inline-flex align-items-center gap-2 mb-0 px-4 py-2 rounded-3 border-0">
+                  class="alert alert-success d-inline-flex align-items-center <?= $isPositive ? 'income-circle' : 'expense-circle'; ?> gap-2 mb-0 px-4 py-2 rounded-3 border-0">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"
                     aria-hidden="true" focusable="false">
                     <path
                       d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M7 6.5C7 5.672 6.552 5 6 5s-1 .672-1 1.5S5.448 8 6 8s1-.672 1-1.5M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M10 6.5c0-.828.448-1.5 1-1.5s1 .672 1 1.5s-.448 1.5-1 1.5s-1-.672-1-1.5" />
                   </svg>
-                  <span class="fw-bold">Congratulations! Great job managing your finances!</span>
+                  <span class="fw-bold <?= $isPositive ? 'text-success-custom' : 'text-expense-custom'; ?>">
+                   <?= $isPositive ? "Congratulations! Great job managing your finances!" : "Attention! Your expenses exceeded your income for this period."; ?> 
+                  </span>
                 </div>
               </div>
             </article>
@@ -358,8 +400,11 @@
             <h2 class="h5 modal-title fw-bold" id="customDateModalLabel">Select custom date range</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body py-3">
-            <form id="customDateForm">
+          
+          <form id="customDateForm" method="GET" action="balance.php">
+            <input type="hidden" name="period" value="custom">
+
+            <div class="modal-body py-3">
               <div class="mb-3">
                 <label for="startDate" class="form-label fw-bold small">Start Date</label>
                 <div class="input-group input-group-custom">
@@ -374,6 +419,7 @@
                   <input type="date" class="form-control form-control-custom" id="startDate" name="startDate" required>
                 </div>
               </div>
+
               <div class="mb-3">
                 <label for="endDate" class="form-label fw-bold small">End Date</label>
                 <div class="input-group input-group-custom">
@@ -382,20 +428,22 @@
                       viewBox="0 0 16 16" aria-hidden="true" focusable="false">
                       <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
                       <path
-                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                         d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
                     </svg>
                   </span>
                   <input type="date" class="form-control form-control-custom" id="endDate" name="endDate" required>
                 </div>
               </div>
-            </form>
-          </div>
-          <div class="modal-footer border-top-0 pt-0">
-            <button type="submit" form="customDateForm" class="btn btn-success-custom rounded-3 fw-bold">Apply
-              Filter</button>
-            <button type="button" class="btn btn-outline-secondary rounded-3 fw-bold"
-              data-bs-dismiss="modal">Cancel</button>
-          </div>
+            </div>
+
+            <div class="modal-footer border-top-0 pt-0">
+              <button type="submit" class="btn btn-success-custom rounded-3 fw-bold">Apply
+                Filter</button>
+              <button type="button" class="btn btn-outline-secondary rounded-3 fw-bold"
+                data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </form> 
+
         </div>
       </div>
     </div>
@@ -408,6 +456,23 @@
       &copy; 2026 HomyFinance. All Rights Reserved.
     </div>
   </footer>
+
+  <?php
+  // Przygotowujemy dane do wykresu wydatków w formacie JSON
+  $chartLabels = [];
+  $chartData = [];
+
+  foreach ($expensesSummary as $expense) {
+      $chartLabels[] = $expense['category_name'];
+      $chartData[] = (float)$expense['total_amount'];
+  }
+  ?>
+
+  <script>
+    // Przekazujemy dane z PHP do zmiennych JavaScript
+    const expenseChartLabels = <?= json_encode($chartLabels); ?>;
+    const expenseChartData = <?= json_encode($chartData); ?>;
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
 

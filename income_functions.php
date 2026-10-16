@@ -7,31 +7,9 @@ declare(strict_types=1);
  */
 function validateAndGetIncomeIds(PDO $db, int $userId, $amount, string $date, $categoryId, $comment): ?string
 {
-    // Zamiana przecinka na kropkę (gdyby użytkownik wpisał np. 12,50)
-    $amount = str_replace(',', '.', $amount);
-
-    if (!is_numeric($amount) || floatval($amount) <= 0) {
-        return "Please enter a valid amount greater than 0.";
-    }
-
-    // Dodatkowe zabezpieczenie przed przepełnieniem typu DECIMAL(8,2) w bazie
-    if (floatval($amount) > 999999.99) {
-        return "Amount is too large (maximum is 999,999.99).";
-    }
-
-    if (empty($date) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
-        return "Please select a valid date.";
-    }
-
-    // Sprawdzenie, czy liczba ma maksymalnie dwie cyfry po przecinku
-    if (!preg_match('/^\d+(\.\d{1,2})?$/', $amount)) {
-        return "Amount can have a maximum of 2 decimal places.";
-    }
-
-    list($year, $month, $day) = explode('-', $date);
-
-    if (!checkdate((int)$month, (int)$day, (int)$year)) {
-        return "Please select a valid calendar date.";
+    $error = validateTransactionData($amount, $date, $comment);
+    if ($error !== null) {
+        return $error;
     }
 
     // Weryfikacja czy kategoria przychodu należy do zalogowanego użytkownika
@@ -39,10 +17,6 @@ function validateAndGetIncomeIds(PDO $db, int $userId, $amount, string $date, $c
     $catStmt->execute([':catId' => (int)$categoryId, ':userId' => $userId]);
     if (!$catStmt->fetch()) {
         return "Invalid category selected.";
-    }
-    
-    if (mb_strlen($comment) > 100) {
-        return "Comment cannot exceed 100 characters.";
     }
 
     return null; // Brak błędów

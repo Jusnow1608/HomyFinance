@@ -50,3 +50,39 @@ function redirectWithIncomeError(string $errorMessage): void {
     header('Location: income.php');
     exit();
 }
+
+/**
+ * Uniwersalna walidacja kwoty, daty i komentarza dla transakcji
+ */
+function validateTransactionData($amount, string $date, string $comment): ?string
+{
+    $amount = str_replace(',', '.', $amount);
+
+    if (!is_numeric($amount) || floatval($amount) <= 0) {
+        return "Please enter a valid amount greater than 0.";
+    }
+
+    if (floatval($amount) > 999999.99) {
+        return "Amount is too large (maximum is 999,999.99).";
+    }
+
+    if (empty($date) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+        return "Please select a valid date.";
+    }
+
+    if (!preg_match('/^\d+(\.\d{1,2})?$/', $amount)) {
+        return "Amount can have a maximum of 2 decimal places.";
+    }
+
+    list($year, $month, $day) = explode('-', $date);
+
+    if (!checkdate((int)$month, (int)$day, (int)$year)) {
+        return "Please select a valid calendar date.";
+    }
+
+    if (mb_strlen($comment) > 100) {
+        return "Comment cannot exceed 100 characters.";
+    }
+
+    return null;
+}
