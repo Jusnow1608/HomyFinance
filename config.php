@@ -16,9 +16,9 @@ if (file_exists($envFile)) {
 }
 
 return [
-    'host'             => $_ENV['DB_HOST']          ?? 'localhost',
-    'user'             => $_ENV['DB_USER']          ?? 'root',
-    'password'         => $_ENV['DB_PASS']          ?? '',
-    'database'         => $_ENV['DB_NAME']          ?? 'homyfinance',
+    'host'             => $_ENV['DB_HOST']          ?? 'ppp.mysql.dhosting.pl',
+    'user'             => $_ENV['DB_USER']          ?? 'eehe4d_budgetju',
+    'password'         => $_ENV['DB_PASS']          ?? 'chaiV8oothee',
+    'database'         => $_ENV['DB_NAME']          ?? 'pha7cu_budgetju',
     'recaptcha_secret' => $_ENV['RECAPTCHA_SECRET'] ?? ''
 ];
