@@ -21,7 +21,7 @@ if (!isset($_SESSION['logged_id'])) {
 }
 
 $userId = $_SESSION['logged_id'];
-$amount = trim($_POST['amount']);
+$amount = str_replace(',', '.', trim((string)($_POST['amount'] ?? '')));
 $incomeDate = $_POST['incomeDate'] ?? '';
 $categoryId = $_POST['category'] ?? '';
 $comment = trim($_POST['comment'] ?? '');

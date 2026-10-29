@@ -56,8 +56,7 @@ function redirectWithIncomeError(string $errorMessage): void {
  */
 function validateTransactionData($amount, string $date, string $comment): ?string
 {
-    $amount = str_replace(',', '.', $amount);
-
+   
     if (!is_numeric($amount) || floatval($amount) <= 0) {
         return "Please enter a valid amount greater than 0.";
     }

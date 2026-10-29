@@ -26,7 +26,7 @@ if (!isValidCsrf()) {
 }
 
 $userId = $_SESSION['logged_id'];
-$amount = trim($_POST['amount']);
+$amount = str_replace(',', '.', trim((string)($_POST['amount'] ?? '')));
 $expenseDate = $_POST['expenseDate'] ?? '';
 $paymentMethodId = $_POST['paymentMethod'] ?? '';
 $categoryId = $_POST['category'] ?? '';
