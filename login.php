@@ -7,6 +7,8 @@ if (isset($_SESSION['logged_id'])) {
     header('Location: index.php');
     exit();
 }
+
+require_once 'functions.php';
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +61,7 @@ if (isset($_SESSION['logged_id'])) {
                 <!-- Komunikat o sukcesie po rejestracji -->
                 <?php if (isset($_SESSION['register_success'])): ?>
                   <div class="alert alert-success text-center small py-2 mb-3" role="alert">
-                    <?= $_SESSION['register_success']; ?>
+                    <?= e($_SESSION['register_success']); ?>
                   </div>
                   <?php unset($_SESSION['register_success']); ?>
                 <?php endif; ?>
@@ -67,7 +69,7 @@ if (isset($_SESSION['logged_id'])) {
                 <!-- Komunikat o błędzie logowania -->
                 <?php if (isset($_SESSION['e_login'])): ?>
                   <div class="alert alert-danger text-center small py-2 mb-3" role="alert">
-                    <?= $_SESSION['e_login']; ?>
+                    <?= e($_SESSION['e_login']); ?>
                   </div>
                   <?php unset($_SESSION['e_login']); ?>
                 <?php endif; ?>
@@ -86,7 +88,7 @@ if (isset($_SESSION['logged_id'])) {
                     </span>
 
                     <input type="email" class="form-control form-control-custom form-control-md" name="email" id="email"
-                      autocomplete="username" placeholder="email@example.com" value="<?= $_SESSION['given_login_email'] ?? '' ?>" aria-label="Email address" required>
+                      autocomplete="username" placeholder="email@example.com" value="<?= e($_SESSION['given_login_email'] ?? '') ?>" aria-label="Email address" required>
                   </div>
 
                   <label for="password" class="form-label-custom">Password</label>

@@ -2,6 +2,8 @@
 
 session_start(); 
 
+require_once 'functions.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +56,7 @@ session_start();
 
                 <?php if (isset($_SESSION['e_register'])): ?>
                   <div class="alert alert-danger text-center small py-2 mb-3" role="alert">
-                    <?= $_SESSION['e_register']; ?>
+                    <?= e($_SESSION['e_register']); ?>
                   </div>
                   <?php unset($_SESSION['e_register']); ?>
                 <?php endif; ?>
@@ -72,7 +74,7 @@ session_start();
                     </span>
 
                     <input type="text" class="form-control form-control-custom form-control-md" placeholder="Your name"
-                      name="name" id="name" value="<?= $_SESSION['given_name'] ?? '' ?>" aria-label="Name" autocomplete="given-name" required>
+                      name="name" id="name" value="<?= e($_SESSION['given_name'] ?? '') ?>" aria-label="Name" autocomplete="given-name" required>
                   </div>
 
                   <label for="email" class="form-label-custom">Email address</label>
@@ -88,7 +90,7 @@ session_start();
                     </span>
 
                     <input type="email" class="form-control form-control-custom form-control-md" id="email" name="email"
-                      placeholder="email@example.com" value="<?= $_SESSION['given_email'] ?? '' ?>" aria-label="Email address" autocomplete="email" required>
+                      placeholder="email@example.com" value="<?= e($_SESSION['given_email'] ?? '') ?>" aria-label="Email address" autocomplete="email" required>
                   </div>
 
                   <label for="password" class="form-label-custom">Password</label>

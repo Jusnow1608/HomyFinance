@@ -86,3 +86,10 @@ function validateTransactionData($amount, string $date, string $comment): ?strin
 
     return null;
 }
+
+/**
+ * Bezpieczne escapowanie danych przed wypisaniem do HTML (ochrona przed XSS)
+ */
+function e(?string $value): string {
+    return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
+}

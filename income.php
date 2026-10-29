@@ -10,6 +10,7 @@ if (!isset($_SESSION['logged_id'])) {
 
 $config = require 'config.php';
 require_once 'database.php';
+require_once 'functions.php';
 
 try {
     $db = getDatabaseConnection($config);
@@ -89,14 +90,14 @@ try {
 
                 <?php if (isset($_SESSION['e_income'])): ?>
                 <div class="alert alert-danger text-center small py-2 mb-3" role="alert">
-                  <?= htmlspecialchars($_SESSION['e_income'], ENT_QUOTES, 'UTF-8'); ?>
+                  <?= e($_SESSION['e_income']); ?>
                 </div>
                 <?php unset($_SESSION['e_income']); ?>
               <?php endif; ?>
 
               <?php if (isset($_SESSION['income_success'])): ?>
                 <div class="alert alert-success text-center small py-2 mb-3" role="alert">
-                  <?= htmlspecialchars($_SESSION['income_success'], ENT_QUOTES, 'UTF-8'); ?>
+                  <?= e($_SESSION['income_success']); ?>
                 </div>
                 <?php unset($_SESSION['income_success']); ?>
               <?php endif; ?>
@@ -112,7 +113,7 @@ try {
                         </span>
                         <input type="number" step="0.01" min="0.01" class="form-control form-control-custom" id="incomeAmount"
                           name="amount" aria-describedby="currency-addon" placeholder="0.00" 
-                          value="<?= htmlspecialchars($_SESSION['given_income_amount'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
+                          value="<?= e($_SESSION['given_income_amount'] ?? ''); ?>" required>
                         <span class="icon-custom" id="currency-addon">PLN</span>
                       </div>
                     </div>
@@ -125,7 +126,7 @@ try {
                           <i class="bi bi-calendar-event"></i>
                         </span>
                         <input type="date" class="form-control form-control-custom" id="incomeDate" name="incomeDate"
-                          value="<?= htmlspecialchars($_SESSION['given_income_date'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
+                          value="<?= e($_SESSION['given_income_date'] ?? ''); ?>" required>
                       </div>
                     </div>
                   </div>
@@ -140,8 +141,8 @@ try {
                     ?>
                     <div class="col-6 col-sm-4 col-md-3">
                       <input type="radio" class="btn-check" name="category" id="cat-<?= $cat['id']; ?>" value="<?= $cat['id']; ?>" <?= $isChecked ? 'checked' : ''; ?>>
-                      <label class="btn form-select-tile w-100 text-truncate" for="cat-<?= $cat['id']; ?>" title="<?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?>">
-                        <span class="tile-text-custom"> <?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?></span>
+                      <label class="btn form-select-tile w-100 text-truncate" for="cat-<?= $cat['id']; ?>" title="<?= e($cat['name']); ?>">
+                        <span class="tile-text-custom"> <?= e($cat['name']); ?></span>
                       </label>
                     </div>
                     <?php endforeach; ?>
@@ -153,7 +154,7 @@ try {
                   <div class="mb-3">
                     <label for="comment" class="form-label fw-bold small">Comment (optional)</label>
                     <textarea class="form-control form-control-custom" id="comment" name="comment" rows="1" maxlength="100"
-                      placeholder="Where did this income come from?"><?= htmlspecialchars($_SESSION['given_income_comment'] ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
+                      placeholder="Where did this income come from?"><?= e($_SESSION['given_income_comment'] ?? ''); ?></textarea>
                   </div>
 
                   <!-- Submit Buttons -->

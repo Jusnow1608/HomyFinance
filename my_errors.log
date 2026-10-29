@@ -1,2 +1,8 @@
 Database Connection Failure: SQLSTATE[HY000] [1049] Unknown database 'homyfinance_zla_nazwa'
 Database Connection Failure: SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo for localhostt failed: Nieznany host. 
+Database Connection Failure: SQLSTATE[HY000] [2002] Próba połączenia nie powiodła się, ponieważ połączona strona nie odpowiedziała poprawnie po ustalonym okresie czasu lub utworzone połączenie nie powiodło się, ponieważ połączony host nie odpowiedział
+Database Connection Failure: SQLSTATE[HY000] [2002] Próba połączenia nie powiodła się, ponieważ połączona strona nie odpowiedziała poprawnie po ustalonym okresie czasu lub utworzone połączenie nie powiodło się, ponieważ połączony host nie odpowiedział
+Database Connection Failure: SQLSTATE[HY000] [2002] Próba połączenia nie powiodła się, ponieważ połączona strona nie odpowiedziała poprawnie po ustalonym okresie czasu lub utworzone połączenie nie powiodło się, ponieważ połączony host nie odpowiedział
+Database Connection Failure: SQLSTATE[HY000] [2002] Próba połączenia nie powiodła się, ponieważ połączona strona nie odpowiedziała poprawnie po ustalonym okresie czasu lub utworzone połączenie nie powiodło się, ponieważ połączony host nie odpowiedział
+Database Connection Failure: SQLSTATE[HY000] [2002] Próba połączenia nie powiodła się, ponieważ połączona strona nie odpowiedziała poprawnie po ustalonym okresie czasu lub utworzone połączenie nie powiodło się, ponieważ połączony host nie odpowiedział
+Database Connection Failure: SQLSTATE[HY000] [2002] Próba połączenia nie powiodła się, ponieważ połączona strona nie odpowiedziała poprawnie po ustalonym okresie czasu lub utworzone połączenie nie powiodło się, ponieważ połączony host nie odpowiedział
