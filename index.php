@@ -2,6 +2,8 @@
 
 session_start();
 
+require_once 'functions.php';
+
 // Guard: Jeśli użytkownik NIE jest zalogowany, przekieruj do logowania
 if (!isset($_SESSION['logged_id'])) {
     header('Location: login.php');

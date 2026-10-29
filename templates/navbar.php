@@ -54,7 +54,10 @@ $currentPage = basename($_SERVER['PHP_SELF']);
           </li>
 
           <li class="nav-item">
-            <a class="nav-link px-3" href="logout.php">Logout</a>
+             <form action="logout.php" method="post" class="d-inline">
+              <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
+              <button type="submit" class="nav-link px-3 border-0 bg-transparent w-100 text-start">Logout</button>
+            </form>
           </li>
 
         <?php else: ?>

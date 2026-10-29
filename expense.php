@@ -110,7 +110,10 @@ try {
                 <?php endif; ?>
 
                 <form id="expenseForm" method="post" action="expense_script.php" novalidate>
-                  <!-- 1. Amount Input -->
+                 
+                <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
+                
+                <!-- 1. Amount Input -->
                   <div class="row g-2 mb-3">
                     <div class="col-12 col-md-6">
                       <label for="amount" class="form-label fw-bold small">Amount</label>

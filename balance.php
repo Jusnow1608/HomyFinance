@@ -11,6 +11,7 @@ if (!isset($_SESSION['logged_id'])) {
 $config = require 'config.php';
 require_once 'database.php';
 require_once 'balance_functions.php';
+require_once 'functions.php';
 
 // Inicjalizacja pustych tablic na wypadek błędów
 $expensesSummary = [];

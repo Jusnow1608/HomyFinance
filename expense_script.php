@@ -20,6 +20,11 @@ if (!isset($_SESSION['logged_id'])) {
     exit();
 }
 
+// Sprawdzenie ochrony CSRF
+if (!isValidCsrf()) {
+    redirectWithExpenseError("Invalid CSRF token. Please try again.");
+}
+
 $userId = $_SESSION['logged_id'];
 $amount = trim($_POST['amount']);
 $expenseDate = $_POST['expenseDate'] ?? '';
