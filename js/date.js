@@ -14,7 +14,9 @@
 
       if (dateInput) {
 
-        dateInput.value = todayLocal;
+        if (!dateInput.value) {
+          dateInput.value = todayLocal;
+        }
         dateInput.max = todayLocal;
       }
       if (form && dateInput) {
