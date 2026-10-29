@@ -322,10 +322,6 @@ try {
                   <h2 class="h5 fw-bold mb-0">Expense Distribution</h2>
                 </div>
 
-                <div class="visually-hidden">
-                  Expense distribution: Apartments 1200 PLN, Food 850 PLN, Recreation 500 PLN, Transport 300 PLN.
-                </div>
-
                 <!-- Chart Canvas Container -->
                 <div class="chart-container d-flex justify-content-center align-items-center">
                   <canvas id="expenseChart" aria-hidden="true"></canvas>
