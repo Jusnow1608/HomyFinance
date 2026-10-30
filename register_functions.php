@@ -82,14 +82,6 @@ function verifyRecaptcha(string $secretKey, string $recaptchaResponse): bool
 
 function registerUser(PDO $db, string $name, string $email, string $password): bool
 {
-    $checkQuery = $db->prepare('SELECT id FROM users WHERE email = :email');
-    $checkQuery->bindValue(':email', $email, PDO::PARAM_STR);
-    $checkQuery->execute();
-
-    if ($checkQuery->rowCount() > 0) {
-       return false;
-    }
-
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
     // 1. Rozpoczynamy transakcję bazodanową
@@ -104,17 +96,17 @@ function registerUser(PDO $db, string $name, string $email, string $password): b
         $insertQuery->execute();
 
         // 3. Pobranie ID nowo utworzonego użytkownika
-        $userId = $db->lastInsertId();
+        $userId = (int)$db->lastInsertId();
 
         // 4. Kopiowanie domyślnych kategorii wydatków
-        $db->query("INSERT INTO expenses_category_assigned_to_users (user_id, name) SELECT $userId, name FROM expenses_category_default");
-
+        $db->prepare("INSERT INTO expenses_category_assigned_to_users (user_id, name) SELECT :userId, name FROM expenses_category_default")
+            ->execute([':userId' => $userId]);
         // 5. Kopiowanie domyślnych kategorii przychodów
-        $db->query("INSERT INTO incomes_category_assigned_to_users (user_id, name) SELECT $userId, name FROM incomes_category_default");
-
+        $db->prepare("INSERT INTO incomes_category_assigned_to_users (user_id, name) SELECT :userId, name FROM incomes_category_default")
+            ->execute([':userId' => $userId]);
         // 6. Kopiowanie domyślnych metod płatności
-        $db->query("INSERT INTO payment_methods_assigned_to_users (user_id, name) SELECT $userId, name FROM payment_methods_default");
-
+        $db->prepare("INSERT INTO payment_methods_assigned_to_users (user_id, name) SELECT :userId, name FROM payment_methods_default")
+            ->execute([':userId' => $userId]);
         // 7. Zatwierdzenie transakcji, jeśli wszystko poszło pomyślnie
         $db->commit();
         return true;
@@ -122,6 +114,10 @@ function registerUser(PDO $db, string $name, string $email, string $password): b
     } catch (Exception $e) {
         // W razie jakiegokolwiek błędu cofamy zmiany w bazie
         $db->rollBack();
+
+        if ($e->getCode() === '23000') {
+            return false;
+        }
         throw $e;
     }
 }
