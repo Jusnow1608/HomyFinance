@@ -5,16 +5,16 @@ declare(strict_types=1);
 function validateRegistrationInput(string $name, $email, string $password, string $recaptchaResponse): ?string
 {
 
-    if (empty($name) || strlen($name) < 3) {
-       return "Please enter a valid name (at least 3 characters).";
+    if (empty($name) || mb_strlen($name) < 3 || mb_strlen($name) > 50) {
+       return "Please enter a valid name (between 3 and 50 characters).";
     }
 
     if (!$email) {
        return "Please enter a valid email address.";
     }
 
-    if ((strlen($password) < 8) || (strlen($password)>20)){
-       return "Password must be between 8 and 20 characters long.";
+    if ((strlen($password) < 8)){
+       return "Password must be at least 8 characters long.";
     }
 
     // Dodatkowe rygorystyczne wymagania bezpieczeństwa hasła:
