@@ -23,9 +23,34 @@ function getDateRange(string $period, ?string $customStart = null, ?string $cust
             break;
 
         case 'custom':
+            $today = date('Y-m-d');
+
             // Niestandardowy zakres (z modala)
-            $start = ($customStart && preg_match('/^\d{4}-\d{2}-\d{2}$/', $customStart)) ? $customStart : date('Y-m-01');
-            $end = ($customEnd && preg_match('/^\d{4}-\d{2}-\d{2}$/', $customEnd)) ? $customEnd : date('Y-m-t');
+            // Walidacja daty początkowej za pomocą DateTime::createFromFormat
+            $startDateObj = $customStart ? DateTime::createFromFormat('!Y-m-d', $customStart) : false;
+            $startValid = ($startDateObj && $startDateObj->format('Y-m-d') === $customStart);
+
+            // Walidacja daty końcowej za pomocą DateTime::createFromFormat
+            $endDateObj = $customEnd ? DateTime::createFromFormat('!Y-m-d', $customEnd) : false;
+            $endValid = ($endDateObj && $endDateObj->format('Y-m-d') === $customEnd);
+
+            $start = $startValid ? $customStart : date('Y-m-01');
+            $end = $endValid ? $customEnd : date('Y-m-t');
+
+            // Blokada dat z przyszłości – jeśli data jest większa niż dzisiejsza, ustaw dzisiejszą
+            if ($start > $today) {
+                $start = $today;
+            }
+            if ($end > $today) {
+                $end = $today;
+            }
+            
+            // Jeśli data początkowa jest późniejsza niż końcowa, zamień je miejscami
+            if ($start > $end) {
+                $temp = $start;
+                $start = $end;
+                $end = $temp;
+            }
             break;
 
         case 'current_month':
