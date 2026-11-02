@@ -116,7 +116,7 @@ try {
                 <!-- 1. Amount Input -->
                   <div class="row g-2 mb-3">
                     <div class="col-12 col-md-6">
-                      <label for="amount" class="form-label fw-bold small">Amount</label>
+                      <label for="expenseAmount" class="form-label fw-bold small">Amount</label>
                       <div class="input-group input-group-custom">
                         <span class="icon-custom">
                           <i class="bi bi-wallet2"></i>
@@ -129,7 +129,7 @@ try {
 
                     <!-- 2. Date Input -->
                     <div class="col-12 col-md-6">
-                      <label for="date" class="form-label fw-bold small">Date</label>
+                      <label for="expenseDate" class="form-label fw-bold small">Date</label>
                       <div class="input-group input-group-custom">
                         <span class="icon-custom">
                           <i class="bi bi-calendar-event"></i>
