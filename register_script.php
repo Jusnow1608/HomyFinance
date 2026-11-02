@@ -23,11 +23,11 @@ $_SESSION['given_email'] = $_POST['email'];
 
 $validationError = validateRegistrationInput($name, $email, $password, $recaptchaResponse);
 if ($validationError !== null) {
-    redirectWithError($validationError, 'register.php');
+    redirectWithError($validationError, 'e_register', 'register.php');
 }
 
 if (!verifyRecaptcha($config['recaptcha_secret'], $recaptchaResponse)) {
-   redirectWithError("reCAPTCHA verification failed. Please try again.", 'register.php');
+   redirectWithError("reCAPTCHA verification failed. Please try again.", 'e_register', 'register.php');
 }
 
 
@@ -38,15 +38,15 @@ try {
     $db = getDatabaseConnection($config);
     
     if (!registerUser($db, $name, $email, $password)) {
-        redirectWithError("An account with this email already exists!", 'register.php');
+        redirectWithError("An account with this email already exists!", 'e_register', 'register.php');
     }
    
     unset($_SESSION['given_name']);
     unset($_SESSION['given_email']);
 
-    redirectWithSuccess("Account created successfully! You can now log in.", 'login.php');
+    redirectWithSuccess("Account created successfully! You can now log in.", 'register_success', 'login.php');
 
     } catch (PDOException $e) {
     error_log('Registration Error (SQL/PDO): ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
-    redirectWithError("Server error. Please try again later.", 'register.php');
+    redirectWithError("Server error. Please try again later.", 'e_register', 'register.php');
 }

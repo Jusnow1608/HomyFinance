@@ -22,7 +22,7 @@ if (!isset($_SESSION['logged_id'])) {
 
 // Sprawdzenie ochrony CSRF
 if (!isValidCsrf()) {
-    redirectWithExpenseError("Invalid CSRF token. Please try again.");
+    redirectWithError("Invalid CSRF token. Please try again.", 'e_expense', 'expense.php');
 }
 
 $userId = $_SESSION['logged_id'];
@@ -47,7 +47,7 @@ try {
     // 1. Walidacja danych wejściowych i uprawnień do ID kategorii / płatności
     $validationError = validateAndGetExpenseIds($db, $userId, $amount, $expenseDate, (int)$paymentMethodId, (int)$categoryId, $comment);
     if ($validationError !== null) {
-        redirectWithExpenseError($validationError);
+        redirectWithError($validationError, 'e_expense', 'expense.php');
     }
 
     // 2. Zapis wydatku w bazie danych za pomocą prepared statement
@@ -64,10 +64,10 @@ try {
         header('Location: expense.php');
         exit();
     } else {
-        redirectWithExpenseError("Failed to add expense. Please try again.");
+        redirectWithError("Failed to add expense. Please try again.", 'e_expense', 'expense.php');
     }
 
 } catch (PDOException $e) {
     error_log('Expense Error (SQL/PDO): ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
-    redirectWithExpenseError("Server error. Please try again later.");
+    redirectWithError("Server error. Please try again later.", 'e_expense', 'expense.php');
 }

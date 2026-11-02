@@ -40,7 +40,7 @@ try {
     // 1. Walidacja danych wejściowych i uprawnień do ID kategorii przychodu
     $validationError = validateAndGetIncomeIds($db, $userId, $amount, $incomeDate, (int)$categoryId, $comment);
     if ($validationError !== null) {
-        redirectWithIncomeError($validationError);
+        redirectWithError($validationError, 'e_income', 'income.php');
     }
 
     // 2. Zapis przychodu w bazie danych za pomocą prepared statement
@@ -56,10 +56,10 @@ try {
         header('Location: income.php');
         exit();
     } else {
-        redirectWithIncomeError("Failed to add income. Please try again.");
+        redirectWithError("Failed to add income. Please try again.", 'e_income', 'income.php');
     }
 
 } catch (PDOException $e) {
     error_log('Income Error (SQL/PDO): ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
-    redirectWithIncomeError("Server error. Please try again later.");
+    redirectWithError("Server error. Please try again later.", 'e_income', 'income.php');
 }

@@ -23,7 +23,7 @@ $_SESSION['given_login_email'] = $_POST['email'];
 // 1. Walidacja danych wejściowych za pomocą funkcji
 $validationError = validateLoginInput($email, $password);
 if ($validationError !== null) {
-    redirectWithLoginError($validationError);   
+    redirectWithError($validationError, 'e_login', 'login.php');   
 }
 
 require_once 'database.php';
@@ -49,10 +49,10 @@ try {
         header('Location: index.php');
         exit();
     } else {
-        redirectWithLoginError("Invalid email or password!");
+        redirectWithError("Invalid email or password!", 'e_login', 'login.php');
     }
 
 } catch (PDOException $e) {
     error_log('Login Error (SQL/PDO): ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/my_errors.log');
-    redirectWithLoginError("Server error. Please try again later.");
+    redirectWithError("Server error. Please try again later.", 'e_login', 'login.php');
 }
